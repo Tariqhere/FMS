@@ -1,0 +1,108 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\UserReqest;
+use App\Models\Department;
+use App\Models\Office;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+     $models = User::with('department','office')->get();
+     return view('backend.website.secondary_setting.user.index',compact('models'));
+   
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $departments = Department::pluck('name','id');
+        $offices = Office::pluck('title','id');
+      return view('backend.website.secondary_setting.user.create',compact('departments','offices'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(UserReqest $request)
+    {
+
+        $model = new User();
+        $model->name = $request->name;
+        $model->email = $request->email;
+        $model->cnic = $request->cnic;
+        $model->office_id = $request->office_id;
+        $model->department_id = $request->department_id;
+        $model->contact = $request->contact;
+
+        if ($request->hasFile('image')) {
+            $imageName = uniqid() . '_' . $request->image->getClientOriginalName();
+            $path = $request->image->move('assets/user', $imageName);
+            $model->image = $path;
+        }
+
+        $model ->save();
+
+        return redirect()->route('user.index')->with('success', 'User updated successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+    $model = User::with('department','office')->find($id);
+    $departments = Department::pluck('name','id');
+    $offices = Office::pluck('title','id');
+    return view('backend.website.secondary_setting.user.edit',compact('model','departments','offices'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        $model = User::find($id);
+        $model->name = $request->name;
+         $model->email = $request->email;
+          if ($request->hasFile('image')) {
+            $imageName = uniqid() . '_' . $request->image->getClientOriginalName();
+            $path = $request->image->move('assets/user', $imageName);
+            $model->image = $path;
+        }
+        $model->cnic = $request->cnic;
+         $model->office_id = $request->office_id;
+        $model->department_id = $request->department_id;
+         $model->contact = $request->contact;
+
+        return redirect()->route('user.index')->with('success', 'User updated successfully.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function delete(string $id)
+    {
+        $model = User::find($id);
+        $model->delete();
+        // Redirect with a success message
+        return redirect()->route('user.index')->with('success', 'Department deleted successfully!');
+    }
+}
