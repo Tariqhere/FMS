@@ -1,5 +1,6 @@
 <?php
 
+//user seeder
 namespace Database\Seeders;
 
 use App\Models\User;
@@ -12,23 +13,23 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-       $users =    
+       $users =
         [
             [
                 'name' => 'John Doe',
                 'email' => 'tajtariq227@gmail.com'
-               
+
             ],
             [
                 'name' => 'Jane asdaDoe',
                 'email' => 'admin@gmail.com'
             ],
-            
+
         ];
 
         foreach ($users as $user) {
             $model = new User();
-            $model->name = $user['name'];  
+            $model->name = $user['name'];
             $model->email = $user['email'];
             $model->password = Hash::make('admin12345');
             $model->save();
