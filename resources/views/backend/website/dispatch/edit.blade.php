@@ -74,8 +74,7 @@
                                 {!! html()->date('complete_date')->id('complete_date')->class('form-control form-control-sm') ->placeholder('Enter complete_date') !!}
                             </div>
                            </div>
-
-                           Code Input -->
+                           
                               <div class="col-12 col-md-6">
                                     <div class="input-block local-forms">
                                         {!! html()->label( 'Flag/Folders')->class('form-label') !!}
