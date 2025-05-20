@@ -13,6 +13,5 @@ Route::middleware('auth')->prefix('backend')->group(function(){
         'service'    =>ServiceController::class,
         'carousel'   =>CarouselController::class,
         'contact'    =>ContactController::class,
-       
      ]);}
      );

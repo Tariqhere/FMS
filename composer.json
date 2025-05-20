@@ -27,14 +27,15 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-         
-           
-        }
+        },
+        "files": [
+            "app/Helpers/DispatchHelper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        
+
         }
     },
     "scripts": {

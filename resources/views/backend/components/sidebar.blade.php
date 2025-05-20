@@ -6,42 +6,42 @@
         transition: all 0.3s ease;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
-  
+
       /* Hover Effect for Menu Link */
       .menu-link:hover {
         background-color: #f0f2f5;
         transform: translateX(5px);
         transition: all 0.2s ease;
       }
-  
+
       /* Sidebar Menu Sub-Items (Indented) */
       .menu-sub .menu-link {
         padding-left: 2rem; /* Thoda indentation kam kiya gaya */
       }
-  
+
       /* App Brand Link Hover Effect */
       .app-brand-link:hover .app-brand-text {
         color: #696cff;
         transition: color 0.2s ease;
       }
-  
+
       /* Active Menu Item Style */
       .menu-item.active .menu-link {
         background-color: #696cff;
         color: white;
         border-radius: 4px;
       }
-  
+
       /* Mobile View - Sidebar Width Reduced */
       @media (max-width: 991px) {
         .layout-menu {
           width: 160px; /* Mobile pe sidebar ko narrow kar diya gaya */
         }
-  
+
         .layout-menu.show {
           width: 250px; /* Sidebar expand karte waqt normal width 180px rahega */
         }
-  
+
         .layout-menu-toggle.menu-link {
           display: block;
           background-color: #2e159c;
@@ -114,14 +114,14 @@
         </span>
         <span class="app-brand-text demo menu-text fw-bolder ms-2">E-Files</span>
       </a>
-  
+
       <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
         <i class="bx bx-chevron-left bx-sm align-middle"></i>
       </a>
     </div>
-  
+
     <div class="menu-inner-shadow"></div>
-  
+
     <ul class="menu-inner py-1">
       <!-- Dashboard -->
       <li class="menu-item">
@@ -172,7 +172,7 @@
         </ul>
       </li>
 
-  
+
       <!-- Dispatch -->
       <li class="menu-item">
         <a href="{{ route('dispatch.index') }}" class="menu-link">
@@ -180,7 +180,7 @@
           <div>Dispatch</div>
         </a>
       </li>
-  
+
       <!-- Inbox -->
       <li class="menu-item">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -192,7 +192,7 @@
             <a href="inbox/all.html" class="menu-link">All</a>
           </li>
           <li class="menu-item">
-            <a href="inbox/sent.html" class="menu-link">Sent</a>
+            <a href="{{route('get.dispatch.pending')}}" class="menu-link">Sent</a>
           </li>
           <li class="menu-item">
             <a href="inbox/returned.html" class="menu-link">Returned</a>
@@ -210,14 +210,13 @@
       </li>
     </ul>
   </aside>
-  
+
   <script>
     // Mobile sidebar toggle functionality
     const toggleButton = document.querySelector('.layout-menu-toggle');
     const layoutMenu = document.getElementById('layout-menu');
-  
+
     toggleButton.addEventListener('click', () => {
       layoutMenu.classList.toggle('show');
     });
   </script>
-  
