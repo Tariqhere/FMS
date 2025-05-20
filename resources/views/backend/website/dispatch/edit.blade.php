@@ -21,7 +21,7 @@
                             </div>
                         </div>
 
-                        <!-- Title Input -->
+                            <!-- Title Input -->
                         <div class="col-12 col-md-6">
                             <div class="input-block local-forms">
                                 {!! html()->label('Title')->class('form-label') !!}
@@ -45,15 +45,11 @@
                             </div>
                         </div>
 
-                        <!-- Attachment Input -->
+                       <!-- Complete Date -->
                         <div class="col-12 col-md-6">
                             <div class="input-block local-forms">
-                                {!! html()->label('Attachments')->class('form-label') !!}
-                                <div id="attachment-container" class="d-flex flex-row flex-wrap gap-3"></div>
-                                <button type="button" id="add-attachment" class="btn btn-primary btn-sm mt-2">
-                                    <i class="bi bi-plus-circle me-1"></i> Add Attachment
-                                </button>
-                                @error('attachments.*') <small class="text-danger">{{ $message }}</small> @enderror
+                                {!! html()->label('Complete date')->class('form-label') !!}
+                                {!! html()->date('complete_date')->id('complete_date')->class('form-control form-control-sm')->placeholder('Enter complete date') !!}
                             </div>
                         </div>
 
@@ -76,13 +72,18 @@
                             </div>
                         </div>
 
-                        <!-- Complete Date -->
+
+                         <!-- User Selection -->
                         <div class="col-12 col-md-6">
                             <div class="input-block local-forms">
-                                {!! html()->label('Complete date')->class('form-label') !!}
-                                {!! html()->date('complete_date')->id('complete_date')->class('form-control form-control-sm')->placeholder('Enter complete date') !!}
+                                {!! html()->label('Users')->class('form-label') !!}
+                                {!! html()->select('user_id', [])->class('form-select')->id('user_id')->placeholder('Select User')->required() !!}
+                                @error('user_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
+                       
 
                         <!-- Office Selection -->
                         <div class="col-12 col-md-6">
@@ -94,18 +95,17 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <!-- User Selection -->
+                  <!-- Attachment Input -->
                         <div class="col-12 col-md-6">
                             <div class="input-block local-forms">
-                                {!! html()->label('Users')->class('form-label') !!}
-                                {!! html()->select('user_id', [])->class('form-select')->id('user_id')->placeholder('Select User')->required() !!}
-                                @error('user_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                {!! html()->label('Attachments')->class('form-label') !!}
+                                <div id="attachment-container" class="d-flex flex-row flex-wrap gap-3"></div>
+                                <button type="button" id="add-attachment" class="btn btn-primary btn-sm mt-2">
+                                    <i class="bi bi-plus-circle me-1"></i> Add Attachment
+                                </button>
+                                @error('attachments.*') <small class="text-danger">{{ $message }}</small> @enderror
                             </div>
                         </div>
-
                         <!-- Submit Button -->
                         <div class="col-12 text-start mt-3">
                             {!! html()->submit('Submit')->class('btn btn-primary btn-sm')->style('font-size: 12px; padding: 6px 12px;') !!}
