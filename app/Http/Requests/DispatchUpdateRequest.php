@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DispatchRequest extends FormRequest
+class DispatchUpdateRequest extends FormRequest
 {
     public function authorize()
     {
@@ -22,7 +22,7 @@ class DispatchRequest extends FormRequest
             'flag_id' => 'required|exists:flags,id',
             'office_id' => 'required|exists:offices,id',
             'user_id' => 'required|exists:users,id',
-            'attachments.*' => 'nullable|file|mimes:jpeg,png,pdf|max:2048', // each file max 2MB
+            'attachments.*' => 'nullable|file|mimes:jpeg,png,pdf,doc,docx|max:2048', // each file max 2MB
         ];
     }
 }
