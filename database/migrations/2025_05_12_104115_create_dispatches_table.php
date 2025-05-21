@@ -17,21 +17,18 @@
      {
          Schema::create('dispatches', function (Blueprint $table) {
              $table->id();
-
-             $table->foreignIdFor(User::class)->nullable()->constrained();
              $table->foreignIdFor(Office::class)->nullable()->constrained();
              $table->foreignIdFor(Flag::class)->nullable()->constrained();
              $table->string('title');
+             $table->string('dispatch_number')->nullable();
+             $table->string('file_number')->nullable();
              $table->string('description')->nullable();
-             $table->string('remark')->nullable();
-             $table->json('attachments')->nullable();
-             $table->string('dispatch_date')->nullable();
-             $table->string('complete_date')->nullable();
-             $table->unsignedTinyInteger('status')->default(0);
-
+             $table->date('dispatch_date')->nullable(); // Changed from string to date
+             $table->date('complete_date')->nullable(); // Changed from string to date
+             $table->time('dispatch_time')->nullable();
+             $table->timestamps();
          });
      }
-
      /**
       * Reverse the migrations.
       */

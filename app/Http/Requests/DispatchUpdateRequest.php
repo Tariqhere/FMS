@@ -15,14 +15,14 @@ class DispatchUpdateRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'remark' => 'nullable|string',
-            'dispatch_date' => 'required|date',
-            'complete_date' => 'nullable|date|after_or_equal:dispatch_date',
             'flag_id' => 'required|exists:flags,id',
+            'dispatch_number' => 'required|string|max:255',
+            'file_number' => 'required|string|max:255',
+            'dispatch_date' => 'nullable|date',
+            'complete_date' => 'nullable|date',
+            'dispatch_time' => 'required|date_format:H:i', // Added new field as mandatory
             'office_id' => 'required|exists:offices,id',
-            'user_id' => 'required|exists:users,id',
-            'attachments.*' => 'nullable|file|mimes:jpeg,png,pdf,doc,docx|max:2048', // each file max 2MB
+            'description' => 'nullable|string',
         ];
     }
 }
