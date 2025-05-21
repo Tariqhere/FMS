@@ -3,9 +3,9 @@
 <div class="content-wrapper">
     <section class="section ms-4 me-4">
         <div class="col-lg-12">
+            {!! html()->form('POST', route('dispatch.store'))->attribute('enctype', 'multipart/form-data')->id('dispatch-form')->open() !!}
             <div class="card">
                 <div class="card-body">
-                    {!! html()->form('POST', route('dispatch.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
                     <div class="row">
                         <!-- Back Button (Top Right) -->
                         <div class="col-12">
@@ -96,13 +96,7 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <!-- Submit Button -->
-                        <div class="col-12 text-start mt-3">
-                            {!! html()->submit('Submit')->class('btn btn-primary btn-sm')->style('font-size: 12px; padding: 6px 12px;') !!}
-                        </div>
                     </div>
-                    {!! html()->form()->close() !!}
                 </div>
             </div>
 
@@ -157,10 +151,14 @@
                                 </thead>
                                 <tbody id="user-table-body"></tbody>
                             </table>
+                            <div class="col-12 text-end mt-3">
+                                <button type="button" id="submit-dispatch-form" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 6px 12px;">Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {!! html()->form()->close() !!}
         </div>
     </section>
 </div>
@@ -183,6 +181,8 @@
         const attachmentContainer = document.getElementById('attachment-container');
         const userSearch = document.getElementById('user-search');
         const selectAllCheckbox = document.getElementById('select-all');
+        const submitButton = document.getElementById('submit-dispatch-form');
+        const dispatchForm = document.getElementById('dispatch-form');
 
         let currentFilteredUsers = [];
 
@@ -237,6 +237,11 @@
                 userTable.style.display = 'table'; // Show table with message
             }
         }
+
+        // Submit button handler
+        submitButton.addEventListener('click', function () {
+            dispatchForm.submit();
+        });
 
         // Function to add new attachment frame
         let attachmentCount = 0;

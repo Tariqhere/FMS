@@ -23,7 +23,7 @@ class FlugRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'code' => 'required|numeric',
+            'code' =>  'nullable|string|max:100',
         ];
     }
 }
