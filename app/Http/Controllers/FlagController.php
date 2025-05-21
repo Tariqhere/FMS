@@ -72,7 +72,7 @@ class FlagController extends Controller
     {
         $model = Flag::find($id);
         $model->delete();
-   
+
         // Redirect with a success message
         return redirect()->route('office.index');
     }
