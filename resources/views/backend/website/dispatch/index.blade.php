@@ -20,15 +20,17 @@
                     <tr>
                         <th>S#</th>
                         <th>Title</th>
-                        <th>Description</th>
+                        <th>Folders</th>
                         <th>Dipatch Number</th>
                         <th>file Number</th>
-                        <th>Flag/Folders</th>
+                        <th>Flags</th>
                         <th>Office</th>
                         <th>Dispatch Date</th>
                         <th>Complete Date</th>
-                        <th>Dispatch Time</th> <!-- Added new column -->
-{{--                        <th>Status</th>--}}
+                        <th>Dispatch Time</th>
+                        <th>Received From</th>
+                        <th>Send To</th>
+                        <th>Description</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -37,37 +39,17 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $model->title ?? 'NA' }}</td>
-                            <td>{{ $model->description ?? 'NA' }}</td>
+                            <td>{{ $model->folder->title ?? 'NA' }}</td>
                             <td>{{ $model->dispatch_number ?? 'NA' }}</td>
                             <td>{{ $model->file_number ?? 'NA' }}</td>
                             <td>{{ $model->flag->title ?? 'NA' }}</td>
                             <td>{{$model->office->title ?? 'NA'}}</td>
                             <td>{{ $model->dispatch_date ?? 'NA' }}</td>
                             <td>{{ $model->complete_date ?? 'NA' }}</td>
-                            <td>{{ $model->dispatch_time ?? 'NA' }}</td> <!-- Added new column data -->
-{{--                            <td>{{ $model->status ?? 'NA' }}</td>--}}
-{{--                            <td>--}}
-{{--                                @if(is_array($model->attachments)) <!-- Changed from attachment to attachments -->--}}
-{{--                                <ul class="list-unstyled mb-0">--}}
-{{--                                    @foreach($model->attachments as $file)--}}
-{{--                                        <li>--}}
-{{--                                            <a href="{{ asset('storage/' . $file) }}" target="_blank">{{ basename($file) }}</a>--}}
-{{--                                        </li>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                                @elseif(is_string($model->attachments) && json_decode($model->attachments))--}}
-{{--                                    <ul class="list-unstyled mb-0">--}}
-{{--                                        @foreach(json_decode($model->attachments) as $file)--}}
-{{--                                            <li>--}}
-{{--                                                <a href="{{ asset('storage/' . $file) }}" target="_blank">{{ basename($file) }}</a>--}}
-{{--                                            </li>--}}
-{{--                                        @endforeach--}}
-{{--                                    </ul>--}}
-{{--                                @else--}}
-{{--                                    NA--}}
-{{--                                @endif--}}
-{{--                            </td>--}}
-
+                            <td>{{ $model->dispatch_time ? \Carbon\Carbon::createFromFormat('H:i:s', $model->dispatch_time)->format('h:i A') : 'NA' }}</td>
+                            <td>{{ $model->received_from?? 'NA' }}</td>
+                             <td>{{ $model->send_to ?? 'NA' }}</td>
+                            <td>{{ strip_tags($model->description) ?? 'N/A' }}</td>
                             <td class="text-center">
                                 <div class="d-flex justify-content-center gap-3">
                                     <!-- Edit Button -->

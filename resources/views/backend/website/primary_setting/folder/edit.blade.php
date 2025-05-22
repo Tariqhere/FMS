@@ -15,11 +15,9 @@
                     </div>
                     <h5 class="card-title">folder Edit </h5>
                     <!-- General Form Elements -->
-                    <form action="{{ route('flag.update', $model->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{'PUT', route('flag.update', $model->id) }}" enctype="multipart/form-data">
                       @csrf
-                      @method('PUT') <!-- This tells Laravel to treat this as an update request -->
-                  
-                  
+
                       <div class="row mb-3">
                           <div class="col-sm-5">
                               <label for="title" class="col-sm-2 col-form-label">Title</label>

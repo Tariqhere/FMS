@@ -25,13 +25,27 @@
                                 <div class="input-block local-forms">
                                     {!! html()->label('Title <span style="color: red;">*</span>', 'title')->class('form-label') !!}
                                     {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title') !!}
+                                    @error('title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Folder Select -->
+                            <div class="col-12 col-md-3">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Folders')->class('form-label') !!}
+                                    {!! html()->select('folder_id', $flags)->class('form-select')->id('folder_id')->placeholder('Select folder')->required() !!}
+                                    @error('folder_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
 
                             <!-- Flag Select -->
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-3">
                                 <div class="input-block local-forms">
-                                    {!! html()->label('Flag/Folders')->class('form-label') !!}
+                                    {!! html()->label('Flag')->class('form-label') !!}
                                     {!! html()->select('flag_id', $flags)->class('form-select')->id('flag_id')->placeholder('Select Flag')->required() !!}
                                     @error('flag_id')
                                     <span class="text-danger">{{ $message }}</span>
@@ -39,52 +53,89 @@
                                 </div>
                             </div>
 
-                            <!-- Dispatch Number -->
-                            <div class="col-12 col-md-6">
-                                <div class="input-block local-forms">
-                                    {!! html()->label('Dispatch Number <span style="color: red;">*</span>', 'dispatch_number')->class('form-label') !!}
-                                    {!! html()->text('dispatch_number')->id('dispatch_number')->class('form-control form-control-sm')->placeholder('Enter Dispatch Number') !!}
-                                </div>
-                            </div>
-
-                            <!-- File Number -->
-                            <div class="col-12 col-md-6">
-                                <div class="input-block local-forms">
-                                    {!! html()->label('File Number <span style="color: red;">*</span>', 'file_number')->class('form-label') !!}
-                                    {!! html()->text('file_number')->id('file_number')->class('form-control form-control-sm')->placeholder('Enter File Number') !!}
-                                </div>
-                            </div>
-
-                            <!-- Dispatch Date -->
-                            <div class="col-12 col-md-6">
-                                <div class="input-block local-forms">
-                                    {!! html()->label('Dispatch date')->class('form-label') !!}
-                                    {!! html()->date('dispatch_date')->id('dispatch_date')->class('form-control form-control-sm')->placeholder('Enter dispatch date') !!}
-                                </div>
-                            </div>
-
-                            <!-- Complete Date -->
-                            <div class="col-12 col-md-6">
-                                <div class="input-block local-forms">
-                                    {!! html()->label('Complete date')->class('form-label') !!}
-                                    {!! html()->date('complete_date')->id('complete_date')->class('form-control form-control-sm')->placeholder('Enter complete date') !!}
-                                </div>
-                            </div>
-
-                            <!-- Time Field (New) -->
-                            <div class="col-12 col-md-6">
-                                <div class="input-block local-forms">
-                                    {!! html()->label('Time<span style="color: red;">*</span>', 'disptach_time')->class('form-label') !!}
-                                    {!! html()->time('dispatch_time')->id('dispatch_time')->class('form-control form-control-sm')->placeholder('Select time') !!}
-                                </div>
-                            </div>
-
                             <!-- Office Selection -->
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Office(Malibu, Calif.)<span style="color: red;">*</span>', 'office_id')->class('form-label') !!}
                                     {!! html()->select('office_id', $offices)->class('form-select')->id('office_id')->placeholder('Select Office')->required() !!}
                                     @error('office_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Dispatch Number -->
+                            <div class="col-12 col-md-3">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Dispatch Number <span style="color: red;">*</span>', 'dispatch_number')->class('form-label') !!}
+                                    {!! html()->text('dispatch_number')->id('dispatch_number')->class('form-control form-control-sm')->placeholder('Enter Dispatch Number') !!}
+                                    @error('dispatch_number')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- File Number -->
+                            <div class="col-12 col-md-3">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('File Number <span style="color: red;">*</span>', 'file_number')->class('form-label') !!}
+                                    {!! html()->text('file_number')->id('file_number')->class('form-control form-control-sm')->placeholder('Enter File Number') !!}
+                                    @error('file_number')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Dispatch Date -->
+                            <div class="col-12 col-md-3">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Dispatch date')->class('form-label') !!}
+                                    {!! html()->date('dispatch_date')->id('dispatch_date')->class('form-control form-control-sm')->placeholder('Enter dispatch date') !!}
+                                    @error('dispatch_date')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Complete Date -->
+                            <div class="col-12 col-md-3">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Complete date')->class('form-label') !!}
+                                    {!! html()->date('complete_date')->id('complete_date')->class('form-control form-control-sm')->placeholder('Enter complete date') !!}
+                                    @error('complete_date')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Send To -->
+                            <div class="col-12 col-md-3">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Send To<span style="color: red;">*</span>', 'send_to')->class('form-label') !!}
+                                    {!! html()->text('send_to')->id('send_to')->class('form-control form-control-sm')->placeholder('Send To') !!}
+                                    @error('send_to')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Received From -->
+                            <div class="col-12 col-md-3">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Received From <span style="color: red;">*</span>', 'received_from')->class('form-label') !!}
+                                    {!! html()->text('received_from')->id('received_from')->class('form-control form-control-sm')->placeholder('Received From') !!}
+                                    @error('received_from')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Time Field (New) -->
+                            <div class="col-12 col-md-3">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Time<span style="color: red;">*</span>', 'disptach_time')->class('form-label') !!}
+                                    {!! html()->time('dispatch_time')->id('dispatch_time')->class('form-control form-control-sm')->placeholder('Select time') !!}
+                                    @error('dispatch_time')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -96,7 +147,11 @@
                                     {!! html()->label('Para/Description')->class('form-label') !!}
                                     <div id="editor" style="height: 200px;"></div>
                                     <input type="hidden" name="description" id="description">
+                                    @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
+
                             </div>
 
                             <!-- Submit Button -->

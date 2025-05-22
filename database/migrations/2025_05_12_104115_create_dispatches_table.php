@@ -2,7 +2,8 @@
 <?php
 
  use App\Models\Flag;
- use App\Models\Office;
+use App\Models\Folder;
+use App\Models\Office;
  use App\Models\User;
  use Illuminate\Database\Migrations\Migration;
  use Illuminate\Database\Schema\Blueprint;
@@ -19,6 +20,7 @@
              $table->id();
              $table->foreignIdFor(Office::class)->nullable()->constrained();
              $table->foreignIdFor(Flag::class)->nullable()->constrained();
+             $table->foreignIdFor(Folder::class)->nullable()->constrained();
              $table->string('title');
              $table->string('dispatch_number')->nullable();
              $table->string('file_number')->nullable();
@@ -26,6 +28,8 @@
              $table->date('dispatch_date')->nullable(); // Changed from string to date
              $table->date('complete_date')->nullable(); // Changed from string to date
              $table->time('dispatch_time')->nullable();
+             $table->string('received_from')->nullable();
+             $table->string('send_to')->nullable();
              $table->timestamps();
          });
      }

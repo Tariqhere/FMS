@@ -16,13 +16,16 @@ class DispatchRequest extends FormRequest
         return [
             'title' => 'required|string|max:255',
             'flag_id' => 'required|exists:flags,id',
+            'folder_id'=> 'required|exists:folders,id',
+            'office_id' => 'required|exists:offices,id',
             'dispatch_number' => 'required|string|max:255',
             'file_number' => 'required|string|max:255',
             'dispatch_date' => 'nullable|date',
             'complete_date' => 'nullable|date',
-            'dispatch_time' => 'required|date_format:H:i', // Added new field as mandatory
-            'office_id' => 'required|exists:offices,id',
-            'description' => 'nullable|string',
+            'dispatch_time' => 'required', // Added new field as mandatory
+            'send_to' => 'required|string|max:255',
+            'received_from' => 'required|string|max:255',
+            'description' => 'required|string',
         ];
     }
 }

@@ -19,4 +19,8 @@ public function flag(){
     return $this->belongsTo(Flag::class);
 }
 
+public function folder(){
+    return $this->belongsTo(Folder::class);
+}
+
 }
