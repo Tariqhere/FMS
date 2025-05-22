@@ -139,7 +139,7 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
-            <a href="{{ route('desigination.index') }}" class="menu-link">Designation</a>
+            <a href="{{ route('designation.index') }}" class="menu-link">Designation</a>
           </li>
           <li class="menu-item">
             <a href="{{ route('department.index') }}" class="menu-link">Department</a>

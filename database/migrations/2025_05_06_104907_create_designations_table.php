@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('desiginations', function (Blueprint $table) {
+        Schema::create('designations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');  // Ensure this column exists in the migration
+            $table->string('title');  // Ensure this column exists in the migration
             $table->string('code');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('desiginations');
+        Schema::dropIfExists('designations');
     }
 };

@@ -1,58 +1,60 @@
 @extends('backend.layout.auth')
-
 @section('backend')
-<div class="content-wrapper ">
-    <section class="section ms-4 me-4">
-        <div class="col-lg-12">
-            <div class="card ">
-                <div class="card-body">
-                    <!-- Back Button (Top Right) -->
-                    <div class="col-12">
-                        <a href="{{ route('department.index') }}" class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-3">
-                            <i class="bi bi-arrow-left"></i> Back
-                        </a>
-                    </div>
+    <div class="content-wrapper">
+        <section class="section ms-4 me-4">
+            <div class="col-lg-8 mx-auto"> <!-- Centered Card -->
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
 
-                    <div class="col-12">
-                        <div class="form-heading">
-                            <h4>Department Edit</h4>
+                        <!-- Back Button -->
+                        <div class="d-flex justify-content-end mb-2">
+                            <a href="{{ route('department.index') }}"
+                               class="btn btn-outline-primary btn-sm rounded-pill shadow-sm"
+                               style="transition: all 0.3s ease;">
+                                <i class="bi bi-arrow-left me-1"></i> Back
+                            </a>
                         </div>
-                    </div>
 
-                    <!-- Form Start -->
-                    <form action="{{ route('department.update', $model->id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
+                        <!-- Form -->
+                        {!! html()->form('PUT', route('department.update',$model->id))->attribute('enctype', 'multipart/form-data')->open() !!}
+                        <div class="row g-3">
 
-                        <!-- Title Input and Code Input in the Same Row -->
-                        <div class="row mb-3">
-                            <!-- Name Input -->
-                            <div class="col-sm-6">
+                            <!-- Form Heading -->
+                            <div class="col-12">
+                                <h4 class=" mb-3">Edit Department</h4>
+                            </div>
+
+                            <!-- Title Input -->
+                            <div class="col-md-6">
                                 <div class="input-block local-forms">
-                                    <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                    <input type="text" class="form-control" id="name" name="name" value="{{ $model->name }}">
+                                    {!! html()->label('Title')->class('form-label') !!}
+                                    {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title')->value($model->title) !!}
+                                    @error('title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
+
                             <!-- Code Input -->
-                            <div class="col-sm-6">
+                            <div class="col-md-6">
                                 <div class="input-block local-forms">
-                                    <label for="code" class="col-sm-2 col-form-label">Code</label>
-                                    <input type="number" class="form-control" id="code" name="code" value="{{ $model->code }}">
+                                    {!! html()->label('Code')->class('form-label') !!}
+                                    {!! html()->text('code')->id('code')->class('form-control form-control-sm')->placeholder('Enter Code')->value($model->code) !!}
+                                    @error('code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Submit Button (Left Bottom) -->
-                        <div class="col-12 text-start mt-3">
-                            <button type="submit" class="btn btn-primary btn-sm" style="font-size: 12px; padding: 6px 12px;">
-                                Submit
-                            </button>
+                            <!-- Submit Button -->
+                            <div class="col-12 text-end mt-3">
+                                {!! html()->submit('Update')->class('btn btn-primary btn-sm rounded-pill')->style('padding: 6px 20px; font-size: 14px;') !!}
+                            </div>
                         </div>
-                    </form>
-                    <!-- Form End -->
+                        {!! html()->form()->close() !!}
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 @endsection

@@ -7,7 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\DesiginationController;
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\FlagController;
 use App\Http\Controllers\FolderController;
@@ -29,7 +29,7 @@ Route::resources([
 
     'department'      => DepartmentController::class,
     'user'           =>  UserController::class,
-    'desigination'    => DesiginationController::class,
+    'designation'    => DesignationController::class,
     'office'         => OfficeController::class,
     'flag'           =>FlagController::class,
     'folder'         =>FolderController::class,
@@ -41,8 +41,8 @@ Route::resources([
  Route::get('/department/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
                            //user//
 Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
-                        //desigination//
-Route::get('/desigination/delete/{id}', [DesiginationController::class, 'delete'])->name('desigination.delete');
+                        //designation//
+Route::get('/designation/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
                         //office//
 Route::get('/office/delete/{id}', [OfficeController::class, 'delete'])->name('office.delete');
                          //flag//

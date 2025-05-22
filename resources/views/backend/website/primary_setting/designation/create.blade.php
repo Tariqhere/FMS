@@ -16,12 +16,11 @@
                         </div>
 
                         <!-- Form -->
-                        {!! html()->form('POST', route('department.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
+                        {!! html()->form('POST', route('designation.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
                         <div class="row g-3">
-
                             <!-- Form Heading -->
                             <div class="col-12">
-                                <h4 class=" mb-3">Create Department</h4>
+                                <h4 class="mb-3">Create Designation</h4>
                             </div>
 
                             <!-- Title Input -->
