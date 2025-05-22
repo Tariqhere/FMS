@@ -21,12 +21,11 @@ class DispatchUpdateRequest extends FormRequest
             'folder_id' => 'required|exists:folders,id',
             'dispatch_date' => 'nullable|date',
             'complete_date' => 'nullable|date',
-            'dispatch_time' => 'required|date_format:H:i', // Added new field as mandatory
+            'dispatch_time' => 'required', // Added new field as mandatory
             'office_id' => 'required|exists:offices,id',
             'received_from' => 'required|string|max:255',
             'send_to' => 'required|string|max:255',
             'description' => 'nullable|string',
-
         ];
     }
 }

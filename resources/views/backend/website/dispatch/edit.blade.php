@@ -21,7 +21,7 @@
                             </div>
 
                             <!-- Title Input -->
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-8">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Title <span style="color: red;">*</span>', 'title')->class('form-label') !!}
                                     {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title')->value($model->title) !!}
@@ -32,7 +32,7 @@
                             </div>
 
                             <!-- Folder Select -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Folders')->class('form-label') !!}
                                     {!! html()->select('folder_id', $folders , $model->folder_id)->class('form-select')->id('folder_id')->placeholder('Select folder')->required() !!}
@@ -43,7 +43,7 @@
                             </div>
 
                             <!-- Flag Select -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Flag/Folders')->class('form-label') !!}
                                     {!! html()->select('flag_id', $flags , $model->flag_id)->class('form-select')->id('flag_id')->placeholder('Select Flag')->required() !!}
@@ -54,7 +54,7 @@
                             </div>
 
                             <!-- Dispatch Number -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Dispatch Number <span style="color: red;">*</span>', 'dispatch_number')->class('form-label') !!}
                                     {!! html()->text('dispatch_number')->id('dispatch_number')->class('form-control form-control-sm')->placeholder('Enter Dispatch Number')->value($model->dispatch_number) !!}
@@ -65,7 +65,7 @@
                             </div>
 
                             <!-- File Number -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('File Number <span style="color: red;">*</span>', 'file_number')->class('form-label') !!}
                                     {!! html()->text('file_number')->id('file_number')->class('form-control form-control-sm')->placeholder('Enter File Number')->value($model->file_number) !!}
@@ -76,7 +76,7 @@
                             </div>
 
                             <!-- Dispatch Date -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Dispatch date')->class('form-label') !!}
                                     {!! html()->date('dispatch_date')->id('dispatch_date')->class('form-control form-control-sm')->placeholder('Enter dispatch date')->value($model->dispatch_date) !!}
@@ -87,7 +87,7 @@
                             </div>
 
                             <!-- Complete Date -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Complete date')->class('form-label') !!}
                                     {!! html()->date('complete_date')->id('complete_date')->class('form-control form-control-sm')->placeholder('Enter complete date')->value($model->complete_date) !!}
@@ -98,7 +98,7 @@
                             </div>
 
                             <!-- Office Selection -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Office(Malibu, Calif.)<span style="color: red;">*</span>', 'office_id')->class('form-label') !!}
                                     {!! html()->select('office_id', $offices , $model->office_id)->class('form-select')->id('office_id')->placeholder('Select Office')->required() !!}
@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                             <!-- Send To -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Send To<span style="color: red;">*</span>', 'send_to')->class('form-label') !!}
                                     {!! html()->text('send_to')->id('send_to')->class('form-control form-control-sm')->placeholder('Send To')->value($model->send_to) !!}
@@ -119,7 +119,7 @@
                             </div>
 
                             <!-- Received From -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Received From <span style="color: red;">*</span>', 'received_from')->class('form-label') !!}
                                     {!! html()->text('received_from')->id('received_from')->class('form-control form-control-sm')->placeholder('Received From')->value($model->received_from) !!}
@@ -130,7 +130,7 @@
                             </div>
 
                             <!-- Time Field (New) -->
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-4">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Time<span style="color: red;">*</span>', 'disptach_time')->class('form-label') !!}
                                     {!! html()->time('dispatch_time')->id('dispatch_time')->class('form-control form-control-sm')->placeholder('Select time')->value($model->dispatch_time) !!}
