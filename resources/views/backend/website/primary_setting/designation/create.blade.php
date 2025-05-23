@@ -8,7 +8,7 @@
 
                         <!-- Back Button -->
                         <div class="d-flex justify-content-end mb-2">
-                            <a href="{{ route('department.index') }}"
+                            <a href="{{ route('designation.index') }}"
                                class="btn btn-outline-primary btn-sm rounded-pill shadow-sm"
                                style="transition: all 0.3s ease;">
                                 <i class="bi bi-arrow-left me-1"></i> Back

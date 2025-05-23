@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FolderRequest;
+use App\Http\Requests\FolderupdateRequest;
 use App\Models\Folder;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,7 @@ class FolderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FolderRequest $request)
     {
         $model = new Folder();
         $model->title = $request->title;
@@ -56,7 +58,7 @@ class FolderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(FolderUpdateRequest $request, string $id)
     {
         $model = Folder::find($id);
         $model->title = $request->title;
@@ -72,7 +74,7 @@ class FolderController extends Controller
     {
         $model = Folder::find($id);
         $model->delete();
-    
+
         // Redirect with a success message
         return redirect()->route('folder.index');
     }

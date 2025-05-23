@@ -26,7 +26,6 @@ Route::middleware('auth')->prefix('backend')->group(function(){
 
 Route::resources([
 
-
     'department'      => DepartmentController::class,
     'user'           =>  UserController::class,
     'designation'    => DesignationController::class,
@@ -36,9 +35,8 @@ Route::resources([
     'dispatch'       =>DispatchController::class,
 
  ]);
-
-                         //department//
- Route::get('/department/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
+//    department
+Route::get('/department/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
                            //user//
 Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
                         //designation//

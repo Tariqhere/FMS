@@ -1,43 +1,59 @@
 @extends('backend.layout.auth')
-
 @section('backend')
-<div class="content-wrapper">
-    <section class="section ms-4 me-4">
-        <div class="row align-items-center">
-        </div>
-        <div class="col-12">
-            <div class="card ms-4 me-4">
-                <div class="card-body">
-                    <div class="col-12">
-                        <a href="{{ route('folder.index') }}" class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-3">
-                            <i class="bi bi-arrow-left"></i> Back
-                        </a>
+    <div class="content-wrapper">
+        <section class="section ms-4 me-4">
+            <div class="col-lg-8 mx-auto"> <!-- Centered Card -->
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+
+                        <!-- Back Button -->
+                        <div class="d-flex justify-content-end mb-2">
+                            <a href="{{ route('flag.index') }}"
+                               class="btn btn-outline-primary btn-sm rounded-pill shadow-sm"
+                               style="transition: all 0.3s ease;">
+                                <i class="bi bi-arrow-left me-1"></i> Back
+                            </a>
+                        </div>
+
+                        <!-- Form -->
+                        {!! html()->form('PUT', route('flag.update',$model->id))->attribute('enctype', 'multipart/form-data')->open() !!}
+                        <div class="row g-3">
+                            <!-- Form Heading -->
+                            <div class="col-12">
+                                <h4 class=" mb-3">Edit Flag</h4>
+                            </div>
+
+                            <!-- Title Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Title')->class('form-label') !!}
+                                    {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title')->value($model->title) !!}
+                                    @error('title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Code Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Code')->class('form-label') !!}
+                                    {!! html()->text('code')->id('code')->class('form-control form-control-sm')->placeholder('Enter Code')->value($model->code) !!}
+                                    @error('code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-12 text-end mt-3">
+                                {!! html()->submit('Update')->class('btn btn-primary btn-sm rounded-pill')->style('padding: 6px 20px; font-size: 14px;') !!}
+                            </div>
+                        </div>
+                        {!! html()->form()->close() !!}
                     </div>
-                    <h5 class="card-title">folder Edit </h5>
-                    <!-- General Form Elements -->
-                    <form action="{{'PUT', route('flag.update', $model->id) }}" enctype="multipart/form-data">
-                      @csrf
-
-                      <div class="row mb-3">
-                          <div class="col-sm-5">
-                              <label for="title" class="col-sm-2 col-form-label">Title</label>
-                              <input type="text" class="form-control" id="title" name="title" value="{{ old('title', $model->title) }}">
-                          </div>
-                          <div class="col-sm-7">
-                              <label for="code" class="col-sm-2 col-form-label">Code</label>
-                              <input type="number" class="form-control" id="code" name="code" value="{{ old('code', $model->code) }}">
-                          </div>
-                      </div>
-
-                      <div class="row mb-3">
-                          <div class="col-sm-12 col-md-10">
-                              <button type="submit" class="btn btn-success">Update</button>
-                          </div>
-                      </div>
-                  </form>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 @endsection

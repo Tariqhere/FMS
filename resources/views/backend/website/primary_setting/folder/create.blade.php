@@ -1,51 +1,59 @@
 @extends('backend.layout.auth')
 @section('backend')
-<div class="content-wrapper ">
-    <section class="section ms-4 me-4">
-        <div class="col-lg-12">
-            <div class="card ">
-                <div class="card-body">
-                    {!! html()->form('POST', route('folder.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
-                    <div class="row">
+    <div class="content-wrapper">
+        <section class="section ms-4 me-4">
+            <div class="col-lg-8 mx-auto"> <!-- Centered Card -->
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
 
-                        <!-- Back Button (Top Right) -->
-                        <div class="col-12">
-                            <a href="{{ route('folder.index') }}" class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-3">
-                                <i class="bi bi-arrow-left"></i> Back
+                        <!-- Back Button -->
+                        <div class="d-flex justify-content-end mb-2">
+                            <a href="{{ route('folder.index') }}"
+                               class="btn btn-outline-primary btn-sm rounded-pill shadow-sm"
+                               style="transition: all 0.3s ease;">
+                                <i class="bi bi-arrow-left me-1"></i> Back
                             </a>
                         </div>
 
-                        <div class="col-12">
-                            <div class="form-heading">
-                                <h4>Office Create</h4>
+                        <!-- Form -->
+                        {!! html()->form('POST', route('folder.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
+                        <div class="row g-3">
+                            <!-- Form Heading -->
+                            <div class="col-12">
+                                <h4 class="mb-3">Create Folders</h4>
+                            </div>
+
+                            <!-- Title Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Title')->class('form-label') !!}
+                                    {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title') !!}
+                                    @error('title')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Code Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Code')->class('form-label') !!}
+                                    {!! html()->text('code')->id('code')->class('form-control form-control-sm')->placeholder('Enter Code') !!}
+                                    @error('code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="col-12 text-end mt-3">
+                                {!! html()->submit('Submit')->class('btn btn-primary btn-sm rounded-pill')->style('padding: 6px 20px; font-size: 14px;') !!}
                             </div>
                         </div>
-
-                        <!-- Title Input -->
-                        <div class="col-12 col-md-6">
-                            <div class="input-block local-forms">
-                                {!! html()->label('Title')->class('form-label') !!}
-                                {!! html()->text('title')->id('title')->class('form-control form-control-sm') ->placeholder('Enter Title') !!}
-                            </div>
-                        </div>
-
-                        <!-- Code Input -->
-                        <div class="col-12 col-md-6">
-                            <div class="input-block">
-                                {!! html()->label('Code')->class('form-label') !!}
-                                {!! html()->text('code')->id('code')->class('form-control form-control-sm') ->placeholder('Enter code') !!}
-                            </div>
-                        </div>
-
-                        <!-- Submit Button (Left Bottom) -->
-                        <div class="col-12 text-start mt-3">
-                            {!! html()->submit('Submit')->class('btn btn-primary btn-sm') ->style('font-size: 12px; padding: 6px 12px;') !!}
-                        </div>
+                        {!! html()->form()->close() !!}
                     </div>
-                    {!! html()->form()->close() !!}
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 @endsection

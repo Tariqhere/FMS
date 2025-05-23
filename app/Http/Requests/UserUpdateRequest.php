@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserReqest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,14 +20,14 @@ class UserReqest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    {     
+    {
         return [
-          'department_id' => 'required|exists:departments,id',
+           'department_id' => 'required|exists:departments,id',
            'office_id' => 'required|exists:offices,id',
-           'name' => 'required|string|max:255',
-            'email' => 'nullable|email|unique:users,email',
+            'name' => 'required|string|max:255',
+            'email' => 'nullable|email|',
            'image' => 'nullable|image|max:2048',
-            'cnic' => 'nullable|string|max:15',
+            'cnic' => 'nullable|string|max:25',
             'contact' => 'nullable|string|max:15',
         ];
     }
