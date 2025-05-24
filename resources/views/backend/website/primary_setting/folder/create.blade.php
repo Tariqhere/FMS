@@ -17,7 +17,7 @@
 
                         <div class="col-12">
                             <div class="form-heading">
-                                <h4>Office Create</h4>
+                                <h4>Folder Create</h4>
                             </div>
                         </div>
 

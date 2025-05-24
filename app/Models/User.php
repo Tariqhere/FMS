@@ -52,5 +52,9 @@ public function office(){
 
     return $this->belongsTo(Office::class);
 }
+public function dispatches()
+    {
+        return $this->belongsToMany(Dispatch::class);
+    }
 
 }

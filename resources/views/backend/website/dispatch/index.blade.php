@@ -1,96 +1,93 @@
 @extends('backend.layout.auth')
 
 @section('backend')
+<div class="content-wrapper">
+    <style>
+        /* Capitalize first letter of table headers */
+        .table thead th {
+            text-transform: capitalize !important;
+        }
+    </style>
 
-    <!-- Hoverable Table rows -->
-    <div class="card ms-4 me-4">
-        <div class="card-body">
-            <div class="row align-items-center mb-3">
-                <div class="col-6">
-                    <h5 class="card-header">Dispatch Index</h5>
-                </div>
-                <div class="col-6 text-end">
-                    <a href="{{ route('dispatch.create') }}" class="btn btn-primary btn-sm me-3">Create</a>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table table-hover table-bordered">
-                    <thead class="table-light">
-                    <tr>
-                        <th>S#</th>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Dipatch Number</th>
-                        <th>file Number</th>
-                        <th>Flag/Folders</th>
-                        <th>Office</th>
-                        <th>Dispatch Date</th>
-                        <th>Complete Date</th>
-                        <th>Dispatch Time</th> <!-- Added new column -->
-{{--                        <th>Status</th>--}}
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @forelse($models as $model)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $model->title ?? 'NA' }}</td>
-                            <td>{{ $model->description ?? 'NA' }}</td>
-                            <td>{{ $model->dispatch_number ?? 'NA' }}</td>
-                            <td>{{ $model->file_number ?? 'NA' }}</td>
-                            <td>{{ $model->flag->title ?? 'NA' }}</td>
-                            <td>{{$model->office->title ?? 'NA'}}</td>
-                            <td>{{ $model->dispatch_date ?? 'NA' }}</td>
-                            <td>{{ $model->complete_date ?? 'NA' }}</td>
-                            <td>{{ $model->dispatch_time ?? 'NA' }}</td> <!-- Added new column data -->
-{{--                            <td>{{ $model->status ?? 'NA' }}</td>--}}
-{{--                            <td>--}}
-{{--                                @if(is_array($model->attachments)) <!-- Changed from attachment to attachments -->--}}
-{{--                                <ul class="list-unstyled mb-0">--}}
-{{--                                    @foreach($model->attachments as $file)--}}
-{{--                                        <li>--}}
-{{--                                            <a href="{{ asset('storage/' . $file) }}" target="_blank">{{ basename($file) }}</a>--}}
-{{--                                        </li>--}}
-{{--                                    @endforeach--}}
-{{--                                </ul>--}}
-{{--                                @elseif(is_string($model->attachments) && json_decode($model->attachments))--}}
-{{--                                    <ul class="list-unstyled mb-0">--}}
-{{--                                        @foreach(json_decode($model->attachments) as $file)--}}
-{{--                                            <li>--}}
-{{--                                                <a href="{{ asset('storage/' . $file) }}" target="_blank">{{ basename($file) }}</a>--}}
-{{--                                            </li>--}}
-{{--                                        @endforeach--}}
-{{--                                    </ul>--}}
-{{--                                @else--}}
-{{--                                    NA--}}
-{{--                                @endif--}}
-{{--                            </td>--}}
-
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center gap-3">
-                                    <!-- Edit Button -->
-                                    <a href="{{ route('dispatch.edit', $model->id) }}" title="Edit">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </a>
-
-                                    <!-- Delete Button with Confirmation -->
-                                    <a href="{{ route('dispatch.delete', $model->id) }}" title="Delete" style="color: #dc3545;">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+    <section class="section ms-4 me-4">
+        <div class="content">
+            <!-- /Page Header -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table show-entire">
+                        <div class="card-body">
+                            <!-- Table Header -->
+                            <div class="page-table-header mb-4">
+                                <div class="row align-items-center">
+                                    <div class="col">
+                                        <h3 class="font-weight-bold">Dispatch Index</h3>
+                                    </div>
+                                    <div class="col-auto text-end">
+                                        <a href="{{ route('dispatch.create') }}" class="btn btn-primary btn-sm me-3">Create</a>
+                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="13" class="text-center"><strong>No records found...</strong></td>
-                        </tr>
-                    @endforelse
-                    </tbody>
-                </table>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover custom-table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="text-center">S#</th>
+                                            <th>Title</th>
+                                            <th>Folders</th>
+                                            {{-- <th>Dispatch Number</th>
+                                            <th>File Number</th> --}}
+                                            <th>Flags</th>
+                                            <th>Office</th>
+                                            <th>Date</th>
+                                            {{-- <th>Dispatch Time</th> --}}
+                                            {{-- <th>Received From</th> --}}
+                                            <th>Send To</th>
+                                            <th>Description</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($models as $model)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $model->title ?? 'NA' }}</td>
+                                                <td>{{ $model->folder->title ?? 'NA' }}</td>
+                                                {{-- <td>{{ $model->dispatch_number ?? 'NA' }}</td>
+                                                <td>{{ $model->file_number ?? 'NA' }}</td> --}}
+                                                <td>{{ $model->flag->title ?? 'NA' }}</td>
+                                                <td>{{ $model->office->title ?? 'NA' }}</td>
+                                                <td>{{ $model->date ?? 'NA' }}</td>
+                                                {{-- <td>{{ $model->dispatch_time ? \Carbon\Carbon::createFromFormat('H:i:s', $model->dispatch_time)->format('h:i A') : 'NA' }}</td> --}}
+                                                {{-- <td>{{ $model->received_from ?? 'NA' }}</td> --}}
+                                                <td>{{ $model->send_to ?? 'NA' }}</td>
+                                                <td>{{ strip_tags($model->description) ?? 'N/A' }}</td>
+                                                <td class="text-center">
+                                                    <div class="d-flex justify-content-center gap-3">
+                                                        <a href="{{ route('dispatch.show', $model->id) }}" title="Show">
+                                                            <i class="bi bi-eye"></i>
+                                                        </a>
+                                                        <a href="{{ route('dispatch.edit', $model->id) }}" title="Edit">
+                                                            <i class="bi bi-pencil-fill"></i>
+                                                        </a>
+                                                        <a href="{{ route('dispatch.delete', $model->id) }}" title="Delete" style="color: #dc3545;">
+                                                            <i class="bi bi-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="13" class="text-center"><strong>No records found...</strong></td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
+    </section>
 @endsection

@@ -6,17 +6,39 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dispatch extends Model
 {
-public function user(){
+    protected $fillable = [
+        'title',
+        'flag_id',
+        'office_id',
+        'folder_id',
+        'dispatch_number',
+        'file_number',
+        'date',
+        'time',
+        'attachments',
+    ];
 
-    return $this->belongsTo(User::class);
-}
-public function office(){
+    protected $casts = [
+        'attachments' => 'array',
+    ];
 
-    return $this->belongsTo(Office::class);
-}
-public function flag(){
+    public function flag()
+    {
+        return $this->belongsTo(Flag::class);
+    }
 
-    return $this->belongsTo(Flag::class);
-}
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
+    }
 
+    public function folder()
+    {
+        return $this->belongsTo(Folder::class);
+    }
+
+  public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
