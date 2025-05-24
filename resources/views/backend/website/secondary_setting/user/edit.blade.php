@@ -46,15 +46,15 @@
                             </div>
 
                             <!-- Image Input -->
-                            <div class="col-md-6">
-                                <div class="input-block local-forms">
-                                    {!! html()->label('Image')->class('form-label') !!}
-                                    {!! html()->file('image')->id('image')->class('form-control form-control-sm')->accept('image/*') !!}
-                                    @error('Image')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="input-block local-forms">--}}
+{{--                                    {!! html()->label('Image')->class('form-label') !!}--}}
+{{--                                    {!! html()->file('image')->id('image')->class('form-control form-control-sm')->accept('image/*') !!}--}}
+{{--                                    @error('Image')--}}
+{{--                                    <span class="text-danger">{{ $message }}</span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                             <!-- Cnic Input -->
                             <div class="col-md-6">
@@ -100,6 +100,34 @@
                                 </div>
                             </div>
 
+{{--                            Image--}}
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {{-- Label --}}
+                                    {!! html()->label('Image')->class('form-label') !!}
+
+                                    {{-- Image Preview --}}
+                                    <div id="imagePreviewWrapper" class="mb-2" style="{{ $model->image ? '' : 'display: none;' }}">
+                                        <img id="imagePreview"
+                                             src="{{ $model->image ? asset($model->image) : '' }}"
+                                             class="img-thumbnail rounded"
+                                             style="max-width: 120px; height: 120px; object-fit: cover;"
+                                             alt="User Image Preview">
+                                    </div>
+
+                                    {{-- File Input --}}
+                                    {!! html()->file('image')
+                                        ->id('image')
+                                        ->class('form-control form-control-sm')
+                                        ->accept('image/*') !!}
+
+                                    {{-- Error Message --}}
+                                    @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
 
                             <!-- Submit Button -->
                             <div class="col-12 text-start mt-3">
@@ -112,6 +140,33 @@
             </div>
         </section>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageInput = document.getElementById('image');
+            const imagePreview = document.getElementById('imagePreview');
+            const imageWrapper = document.getElementById('imagePreviewWrapper');
+
+            imageInput?.addEventListener('change', function () {
+                const file = this.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                        imageWrapper.style.display = 'block';
+                    };
+
+                    reader.readAsDataURL(file); // Converts image to base64
+                } else {
+                    imageWrapper.style.display = 'none';
+                    imagePreview.src = '';
+                }
+            });
+        });
+    </script>
+
 @endsection
 
 

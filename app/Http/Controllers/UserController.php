@@ -60,7 +60,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $model = User::with('department', 'office')->findOrFail($id);
+        return view('backend.website.secondary_setting.user.show', compact('model'));
     }
 
     /**

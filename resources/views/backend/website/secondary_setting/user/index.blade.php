@@ -29,8 +29,8 @@
                                             <th style="width: 5%;">S#</th>
                                             <th style="width: 40%; text-align: left;">Name</th>
                                             <th style="width: 25%; text-align: left;">Email</th>
-                                            <th style="width: 25%; text-align: left;">Cnic</th>
-                                            <th style="width: 25%; text-align: left;">Contact</th>
+{{--                                            <th style="width: 25%; text-align: left;">Cnic</th>--}}
+{{--                                            <th style="width: 25%; text-align: left;">Contact</th>--}}
                                             <th style="width: 25%; text-align: left;">Offices</th>
                                             <th style="width: 25%; text-align: left;">Department</th>
                                             <th style="width: 25%; text-align: left;">Image</th>
@@ -43,8 +43,8 @@
                                                 <td class="text-center align-middle">{{ $loop->iteration }}</td>
                                                 <td class="align-middle" style="text-align: left;">{{ $model->name ?? 'NA' }}</td>
                                                 <td class="align-middle" style="text-align: left;">{{ $model->email ?? 'NA' }}</td>
-                                                <td class="align-middle" style="text-align: left;">{{ $model->cnic ?? 'NA' }}</td>
-                                                <td class="align-middle" style="text-align: left;">{{ $model->contact ?? 'NA' }}</td>
+{{--                                                <td class="align-middle" style="text-align: left;">{{ $model->cnic ?? 'NA' }}</td>--}}
+{{--                                                <td class="align-middle" style="text-align: left;">{{ $model->contact ?? 'NA' }}</td>--}}
                                                 <td class="align-middle" style="text-align: left;">{{ $model->office->title ?? 'NA' }}</td>
                                                 <td class="align-middle" style="text-align: left;">{{ $model->department->title ?? 'NA' }}</td>
 {{--                                                <td class="align-middle" style="text-align: left;"><img src="{{ asset($model->image) }}"  style="width:40px; height: 40px;">?? 'N/A'</td>--}}
@@ -54,6 +54,9 @@
 
                                                 <td class="text-center align-middle">
                                                     <div class="d-flex justify-content-center gap-3">
+                                                        <a href="{{ route('user.show', $model->id) }}" title="View" style="color: #0d6efd;">
+                                                            <i class="bi bi-eye-fill"></i>
+                                                        </a>
                                                         <a href="{{ route('user.edit', $model->id) }}" title="Edit">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </a>

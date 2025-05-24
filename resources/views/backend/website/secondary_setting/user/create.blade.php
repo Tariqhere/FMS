@@ -45,16 +45,17 @@
                                 </div>
                             </div>
 
-                            <!-- Image Input -->
-                            <div class="col-md-6">
-                                <div class="input-block local-forms">
-                                    {!! html()->label('Image')->class('form-label') !!}
-                                    {!! html()->file('image')->id('image')->class('form-control form-control-sm')->accept('image/*') !!}
-                                    @error('Image')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
+
+                            {{--                            <!-- Image Input -->--}}
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="input-block local-forms">--}}
+{{--                                    {!! html()->label('Image')->class('form-label') !!}--}}
+{{--                                    {!! html()->file('image')->id('image')->class('form-control form-control-sm')->accept('image/*') !!}--}}
+{{--                                    @error('Image')--}}
+{{--                                    <span class="text-danger">{{ $message }}</span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                             <!-- Cnic Input -->
                             <div class="col-md-6">
@@ -100,6 +101,33 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {{-- Label --}}
+                                    {!! html()->label('Image')->class('form-label') !!}
+
+                                    {{-- Image Preview (Initially hidden) --}}
+                                    <div id="imagePreviewWrapper" class="mb-2" style="display: none;">
+                                        <img id="imagePreview"
+                                             class="img-thumbnail rounded shadow-sm"
+                                             style="max-width: 80px; height: 80px; object-fit: cover;"
+                                             alt="Image Preview">
+                                    </div>
+
+                                    {{-- File Input --}}
+                                    {!! html()->file('image')
+                                        ->id('image')
+                                        ->class('form-control form-control-sm')
+//                                        ->accept('image/*')
+                                    !!}
+
+                                    {{-- Error --}}
+                                    @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
 
                             <!-- Submit Button -->
                             <div class="col-12 text-start mt-3">
@@ -112,6 +140,29 @@
             </div>
         </section>
     </div>
+    <script>
+        document.getElementById('image').addEventListener('change', function (event) {
+            const input = event.target;
+            const preview = document.getElementById('imagePreview');
+            const wrapper = document.getElementById('imagePreviewWrapper');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    wrapper.style.display = 'block';
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                wrapper.style.display = 'none';
+                preview.src = '';
+            }
+        });
+    </script>
+
+
 @endsection
 
 
