@@ -17,12 +17,14 @@ class UserSeeder extends Seeder
         [
             [
                 'name' => 'John Doe',
-                'email' => 'tajtariq227@gmail.com'
+                'email' => 'tajtariq227@gmail.com',
+                'cnic' => '1214'
 
             ],
             [
-                'name' => 'Jane asdaDoe',
-                'email' => 'admin@gmail.com'
+                'name' => 'Jane Doe',
+                'email' => 'admin@gmail.com',
+                'cnic' => '1214'
             ],
 
         ];
@@ -31,6 +33,7 @@ class UserSeeder extends Seeder
             $model = new User();
             $model->name = $user['name'];
             $model->email = $user['email'];
+            $model->cnic = $user['cnic'];
             $model->password = Hash::make('admin12345');
             $model->save();
         }

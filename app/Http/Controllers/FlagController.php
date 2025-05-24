@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FlagRequest;
+use App\Http\Requests\FlagUpdateRequest;
 use App\Models\Flag;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,7 @@ class FlagController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FlagRequest $request)
     {
         $model = new Flag();
         $model->title = $request->title;
@@ -56,7 +58,7 @@ class FlagController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(FlagUpdateRequest $request, string $id)
     {
         $model = Flag::find($id);
         $model->title = $request->title;
@@ -72,8 +74,7 @@ class FlagController extends Controller
     {
         $model = Flag::find($id);
         $model->delete();
-
         // Redirect with a success message
-        return redirect()->route('office.index');
+        return redirect()->route('flag.index');
     }
 }

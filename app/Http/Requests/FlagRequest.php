@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FlugRequest extends FormRequest
+class FlagRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class FlugRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'code' =>  'nullable|string|max:100',
+
+            'title'=>'required|string|max:255',
+            'code'=>'required|string',
+
         ];
     }
 }

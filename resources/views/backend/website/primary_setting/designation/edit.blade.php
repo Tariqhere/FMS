@@ -8,7 +8,7 @@
 
                         <!-- Back Button -->
                         <div class="d-flex justify-content-end mb-2">
-                            <a href="{{ route('flag.index') }}"
+                            <a href="{{ route('designation.index') }}"
                                class="btn btn-outline-primary btn-sm rounded-pill shadow-sm"
                                style="transition: all 0.3s ease;">
                                 <i class="bi bi-arrow-left me-1"></i> Back
@@ -16,11 +16,11 @@
                         </div>
 
                         <!-- Form -->
-                        {!! html()->form('PUT', route('flag.update',$model->id))->attribute('enctype', 'multipart/form-data')->open() !!}
+                        {!! html()->form('PUT', route('designation.update',$model->id))->attribute('enctype', 'multipart/form-data')->open() !!}
                         <div class="row g-3">
                             <!-- Form Heading -->
                             <div class="col-12">
-                                <h4 class=" mb-3">Edit Flag</h4>
+                                <h4 class=" mb-3">Edit Designation</h4>
                             </div>
 
                             <!-- Title Input -->

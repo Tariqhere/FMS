@@ -13,8 +13,8 @@
 
                                 <!-- Page Header -->
                                 <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <h3 class="mb-0">Department Index</h3>
-                                    <a href="{{ route('department.create') }}"
+                                    <h3 class="mb-0">Designation Index</h3>
+                                    <a href="{{ route('designation.create') }}"
                                        class="btn btn-outline-primary btn-sm rounded-pill shadow-sm">
                                         <i class="bi bi-plus-circle me-1"></i> Create
                                     </a>
@@ -39,10 +39,10 @@
                                                 <td class="align-middle" style="text-align: left;">{{ $model->code ?? 'NA' }}</td>
                                                 <td class="text-center align-middle">
                                                     <div class="d-flex justify-content-center gap-3">
-                                                        <a href="{{ route('department.edit', $model->id) }}" title="Edit">
+                                                        <a href="{{ route('designation.edit', $model->id) }}" title="Edit">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </a>
-                                                        <a href="{{ route('department.delete', $model->id) }}" title="Delete" style="color: #dc3545;">
+                                                        <a href="{{ route('designation.delete', $model->id) }}" title="Delete" style="color: #dc3545;">
                                                             <i class="bi bi-trash"></i>
                                                         </a>
                                                     </div>

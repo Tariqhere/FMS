@@ -63,21 +63,21 @@ class DispatchController extends Controller
             $model->send_to = $request->send_to;
             $model->received_from = $request->received_from;
             $model->save();
+           
 
-            // Handle attachments
             if ($request->hasFile('attachments')) {
-                foreach ($request->attachments as $attachment) {
-                    $file_name = 'dispatch_document_' . uniqid() . '.' . $attachment->getClientOriginalExtension();
-                    $file_path = $attachment->move('public/documents/', $file_name);
-                    $document = new DispatchDocument();
-                    $document->dispatch_id = $model->id;
-                    $document->file = $file_path;
-                    $document->save();
+                foreach ($request->file('attachments') as $attachment) {
+                    $fileName = 'dispatch_document_' . uniqid() . '.' . $attachment->getClientOriginalExtension();
+                    $filePath = $attachment->move('public/documents/', $fileName);
+
+                    DispatchDocument::create([
+                        'dispatch_id' => $model->id,
+                        'file' => $filePath
+                    ]);
                 }
             }
 
-            // Handle selected users
-            if ($request->filled('selected_users') && is_array($request->selected_users)) {
+            if ($request->filled('selected_users')) {
                 $model->users()->sync($request->selected_users);
             }
 
@@ -91,25 +91,11 @@ class DispatchController extends Controller
 
     public function show(Dispatch $dispatch)
     {
+        $model = $dispatch->load('users');
         $flags = Flag::pluck('title', 'id');
         $offices = Office::pluck('title', 'id');
         $departments = Department::pluck('name', 'id');
         $folders = Folder::pluck('title', 'id');
-
-        $model = $dispatch->load('users');
-        $model->users = $model->users->map(function ($user) {
-            return [
-                'id' => $user->id,
-                'name' => $user->name ?? 'N/A',
-                'cnic' => $user->cnic ?? 'N/A',
-                'contact' => $user->contact ?? 'N/A',
-                'office_id' => $user->office_id,
-                'department_id' => $user->department_id,
-                'office_name' => $user->office->title ?? 'N/A',
-                'department_name' => $user->department->name ?? 'N/A',
-                'email' => $user->email ?? 'N/A',
-            ];
-        });
 
         $users = User::select('id', 'name', 'cnic', 'contact', 'office_id', 'department_id')
             ->with(['office:id,title', 'department:id,name'])
@@ -130,7 +116,7 @@ class DispatchController extends Controller
         return view('backend.website.dispatch.show', compact('model', 'flags', 'offices', 'departments', 'folders', 'users'));
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
         $model = Dispatch::findOrFail($id);
         $flags = Flag::pluck('title', 'id');
@@ -157,53 +143,56 @@ class DispatchController extends Controller
         return view('backend.website.dispatch.edit', compact('model', 'flags', 'offices', 'departments', 'folders', 'users'));
     }
 
-    public function update(DispatchUpdateRequest $request, string $id)
+    public function update(DispatchUpdateRequest $request, $id)
     {
         try {
-            $model = Dispatch::findOrFail($id);
-            $model->flag_id = $request->flag_id;
+            $model = Dispatch::find($id);
+             $model->flag_id = $request->flag_id;
             $model->folder_id = $request->folder_id;
             $model->office_id = $request->office_id;
             $model->title = $request->title;
             $model->dispatch_number = $request->dispatch_number;
             $model->file_number = $request->file_number;
             $model->description = $request->description;
-            $model->dispatch_date = $request->dispatch_date;
-            $model->complete_date = $request->complete_date;
+            $model->date = $request->date;
             $model->dispatch_time = $request->dispatch_time;
             $model->send_to = $request->send_to;
             $model->received_from = $request->received_from;
             $model->save();
-
+           
             if ($request->hasFile('attachments')) {
-                foreach ($request->attachments as $attachment) {
-                    $file_name = 'dispatch_document_' . uniqid() . '.' . $attachment->getClientOriginalExtension();
-                    $file_path = $attachment->move('public/documents/', $file_name);
-                    $document = new DispatchDocument();
-                    $document->dispatch_id = $model->id;
-                    $document->file = $file_path;
-                    $document->save();
+                foreach ($request->file('attachments') as $attachment) {
+                    $fileName = 'dispatch_document_' . uniqid() . '.' . $attachment->getClientOriginalExtension();
+                    $filePath = $attachment->move('public/documents/', $fileName);
+
+                    DispatchDocument::create([
+                        'dispatch_id' => $model->id,
+                        'file' => $filePath
+                    ]);
                 }
             }
 
-            if ($request->filled('selected_users') && is_array($request->selected_users)) {
+            if ($request->filled('selected_users')) {
                 $model->users()->sync($request->selected_users);
             } else {
                 $model->users()->sync([]);
             }
-            return redirect()->route('dispatch.index')->with('success',' added successfully');
+
+            flash()->success('Dispatch updated successfully!');
+            return redirect()->route('dispatch.index');
         } catch (\Exception $e) {
             flash()->error('Something went wrong: ' . $e->getMessage());
             return back()->withInput();
         }
     }
 
-    public function delete(string $id)
+    public function delete($id)
     {
         try {
-            $model = Dispatch::findOrFail($id);
+            $model = Dispatch::find($id);
             $model->delete();
-            return redirect()->route('dispatch.index')->with('success',' added successfully');
+            flash()->success('Dispatch deleted successfully!');
+            return redirect()->route('dispatch.index');
         } catch (\Exception $e) {
             flash()->error('Failed to delete dispatch: ' . $e->getMessage());
             return back();

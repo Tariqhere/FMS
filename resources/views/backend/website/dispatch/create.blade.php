@@ -20,8 +20,7 @@
                                     <h4>Dispatch Create</h4>
                                 </div>
                             </div>
-
-                            <!-- First Row: Title, Folder, Flag -->
+                          <!-- First Row: Title, Folder, Flag -->
                             <div class="col-12 col-md-6">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Title <span style="color: red;">*</span>', 'title')->class('form-label') !!}
@@ -58,7 +57,7 @@
                                 <div class="input-block local-forms">
                                     {!! html()->label('Office <span style="color: red;">*</span>', 'office_id')->class('form-label') !!}
                                     {!! html()->select('office_id', $offices)->class('form-select')->id('office_id')->placeholder('Select Office')->required() !!}
-                                    @error('office_id')
+                                   @error('office_id')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -194,6 +193,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             <!-- Submit Button -->

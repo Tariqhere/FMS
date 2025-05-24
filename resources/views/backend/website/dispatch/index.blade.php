@@ -8,7 +8,6 @@
             text-transform: capitalize !important;
         }
     </style>
-
     <section class="section ms-4 me-4">
         <div class="content">
             <!-- /Page Header -->

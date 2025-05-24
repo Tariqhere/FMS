@@ -1,126 +1,173 @@
 @extends('backend.layout.auth')
-
 @section('backend')
-<div class="content-wrapper">
-  <section class="section ms-4 me-4">
-    <div class="content">
-      <!-- /Page Header -->
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="card card-table show-entire">
-            <div class="card-body">
-              <!-- Table Header -->
-              <div class="page-table-header mb-4">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <h3 class="font-weight-bold">Edit User</h3>
-                  </div>
-                  <div class="col-auto text-end">
-                    <a href="{{ route('user.index') }}" class="btn btn-primary btn-sm rounded-pill" style="font-size: 10px;">
-                      <i class="fa fa-plus"></i> Back
-                    </a>
-                  </div>
+    <div class="content-wrapper">
+        <section class="section ms-4 me-4">
+            <div class="col-lg-12 mx-auto"> <!-- Centered Card -->
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+
+                        <!-- Back Button -->
+                        <div class="d-flex justify-content-end mb-2">
+                            <a href="{{ route('user.index') }}"
+                               class="btn btn-outline-primary btn-sm rounded-pill shadow-sm"
+                               style="transition: all 0.3s ease;">
+                                <i class="bi bi-arrow-left me-1"></i> Back
+                            </a>
+                        </div>
+
+                        <!-- Form -->
+                        {!! html()->form('PUT', route('user.update',$model->id))->attribute('enctype', 'multipart/form-data')->open() !!}
+                        <div class="row g-3">
+                            <!-- Form Heading -->
+                            <div class="col-12">
+                                <h4 class="mb-3">Edit Users</h4>
+                            </div>
+
+                            <!-- Title Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('name')->class('form-label') !!}
+                                    {!! html()->text('name')->id('name')->class('form-control form-control-sm')->placeholder('Enter Name')->value($model->name) !!}
+                                    @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Email Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Email')->class('form-label') !!}
+                                    {!! html()->text('email')->id('email')->class('form-control form-control-sm')->placeholder('Enter Email')->value($model->email) !!}
+                                    @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Image Input -->
+{{--                            <div class="col-md-6">--}}
+{{--                                <div class="input-block local-forms">--}}
+{{--                                    {!! html()->label('Image')->class('form-label') !!}--}}
+{{--                                    {!! html()->file('image')->id('image')->class('form-control form-control-sm')->accept('image/*') !!}--}}
+{{--                                    @error('Image')--}}
+{{--                                    <span class="text-danger">{{ $message }}</span>--}}
+{{--                                    @enderror--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+                            <!-- Cnic Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Cnic')->class('form-label') !!}
+                                    {!! html()->text('cnic')->id('cnic')->class('form-control form-control-sm')->placeholder('Enter Cnic')->value($model->cnic) !!}
+                                    @error('cnic')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Number Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Contact')->class('form-label') !!}
+                                    {!! html()->number('contact')->id('contact')->class('form-control form-control-sm')->placeholder('Enter Number')->value($model->contact) !!}
+                                    @error('contact')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Office Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Offices')->class('form-label') !!}
+                                    {!! html()->select('office_id', $offices)->id('office_id')->class('form-select')->placeholder('Select Office')->value($model->office_id) !!}
+                                    @error('office_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <!-- Department Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Department')->class('form-label') !!}
+                                    {!! html()->select('department_id', $departments)->id('department_id')->class('form-select')->placeholder('Select Department')->value($model->department_id) !!}
+                                    @error('department_id')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+{{--                            Image--}}
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {{-- Label --}}
+                                    {!! html()->label('Image')->class('form-label') !!}
+
+                                    {{-- Image Preview --}}
+                                    <div id="imagePreviewWrapper" class="mb-2" style="{{ $model->image ? '' : 'display: none;' }}">
+                                        <img id="imagePreview"
+                                             src="{{ $model->image ? asset($model->image) : '' }}"
+                                             class="img-thumbnail rounded"
+                                             style="max-width: 120px; height: 120px; object-fit: cover;"
+                                             alt="User Image Preview">
+                                    </div>
+
+                                    {{-- File Input --}}
+                                    {!! html()->file('image')
+                                        ->id('image')
+                                        ->class('form-control form-control-sm')
+                                        ->accept('image/*') !!}
+
+                                    {{-- Error Message --}}
+                                    @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <!-- Submit Button -->
+                            <div class="col-12 text-start mt-3">
+                                {!! html()->submit('Submit')->class('btn btn-primary btn-sm rounded-pill')->style('padding: 6px 20px; font-size: 14px;') !!}
+                            </div>
+                        </div>
+                        {!! html()->form()->close() !!}
+                    </div>
                 </div>
-              </div>
-
-              <div class="card-body">
-                <!-- Form -->
-                {!! html()->form('PUT', route('user.update', $model->id))
-                    ->attribute('enctype', 'multipart/form-data')
-                    ->open() !!}
-
-                  <div class="row">
-                    <!-- Name and Email Fields -->
-                    <div class="row mb-3">
-                      <div class="col-sm-6">
-                        <div class="input-block local-forms">
-                          {!! html()->label('Name')->class('form-label') !!}
-                          {!! html()->text('name')->id('name')->class('form-control')->placeholder('Enter Name')->value(old('name', $model->name))->required() !!}
-                          @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="input-block local-forms">
-                          {!! html()->label('Email')->class('form-label') !!}
-                          {!! html()->text('email')->id('email')->class('form-control')->placeholder('Enter Email')->value(old('email', $model->email))->required() !!}
-                          @error('email')
-                            <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Image and CNIC Fields -->
-                    <div class="row mb-3">
-                      <div class="col-sm-6">
-                        <div class="input-block local-forms">
-                          {!! html()->label('Image')->class('form-label') !!}
-                          {!! html()->file('image')->class('form-control')->id('image')->accept('image/*') !!}
-                          @error('image')
-                            <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="input-block local-forms">
-                          {!! html()->label('CNIC')->class('form-label') !!}
-                          {!! html()->number('cnic')->id('cnic')->class('form-control')->placeholder('Enter CNIC')->value(old('cnic', $model->cnic))->required() !!}
-                          @error('cnic')
-                            <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Office and Department Fields -->
-                    <div class="row mb-3">
-                      <div class="col-sm-6">
-                        <div class="input-block local-forms">
-                          {!! html()->label('Office')->class('form-label') !!}
-                          {!! html()->select('office_id', $offices)->class('form-select')->id('office_id')->placeholder('Select Office')->value(old('office_id', $model->office_id))->required() !!}
-                          @error('office_id')
-                            <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div class="input-block local-forms">
-                          {!! html()->label('Department')->class('form-label') !!}
-                          {!! html()->select('department_id', $departments)->class('form-select')->id('department_id')->placeholder('Select Department')->value(old('department_id', $model->department_id))->required() !!}
-                          @error('department_id')
-                            <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Contact Field -->
-                    <div class="row mb-3">
-                      <div class="col-sm-6">
-                        <div class="input-block local-forms">
-                          {!! html()->label('Contact')->class('form-label') !!}
-                          {!! html()->number('contact')->class('form-control')->id('contact')->placeholder('Enter Contact')->value(old('contact', $model->contact))->required() !!}
-                          @error('contact')
-                            <span class="text-danger">{{ $message }}</span>
-                          @enderror
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <div class="col-12 text-start mt-3">
-                      {!! html()->submit('Update')->class('btn btn-primary btn-sm')->style('font-size: 12px; padding: 6px 12px;') !!}
-                    </div>
-                  </div>
-
-                {!! html()->form()->close() !!}
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const imageInput = document.getElementById('image');
+            const imagePreview = document.getElementById('imagePreview');
+            const imageWrapper = document.getElementById('imagePreviewWrapper');
+
+            imageInput?.addEventListener('change', function () {
+                const file = this.files[0];
+
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                        imageWrapper.style.display = 'block';
+                    };
+
+                    reader.readAsDataURL(file); // Converts image to base64
+                } else {
+                    imageWrapper.style.display = 'none';
+                    imagePreview.src = '';
+                }
+            });
+        });
+    </script>
+
 @endsection
+
+
+

@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FolderRequest;
-use App\Http\Requests\FolderupdateRequest;
-use App\Models\Folder;
+use App\Http\Requests\DesignationRequest;
+use App\Models\Designation;
 use Illuminate\Http\Request;
 
-class FolderController extends Controller
+
+class DesignationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $models = Folder::all();
-        return view('backend.website.primary_setting.folder.index', compact('models'));
+       $models = Designation::all();
+         return view('backend.website.primary_setting.designation.index',compact('models'));
     }
 
     /**
@@ -23,19 +23,19 @@ class FolderController extends Controller
      */
     public function create()
     {
-        return view('backend.website.primary_setting.folder.create');
+        return view('backend.website.primary_setting.designation.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FolderRequest $request)
+    public function store(DesignationRequest $request)
     {
-        $model = new Folder();
+        $model = new Designation();
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-        return redirect()->route('folder.index');
+        return redirect()->route('designation.index');
     }
 
     /**
@@ -51,20 +51,20 @@ class FolderController extends Controller
      */
     public function edit(string $id)
     {
-        $model = Folder::find($id);
-        return view('backend.website.primary_setting.folder.edit', compact('model'));
+        $model =Designation::find($id);
+        return view('backend.website.primary_setting.designation.edit',compact('model'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(FolderUpdateRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
-        $model = Folder::find($id);
+        $model = Designation::find($id);
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-        return redirect()->route('folder.index');
+        return redirect()->route('designation.index')->with('success', 'Department updated successfully!');
     }
 
     /**
@@ -72,10 +72,8 @@ class FolderController extends Controller
      */
     public function delete(string $id)
     {
-        $model = Folder::find($id);
+        $model=Designation::find($id);
         $model->delete();
-
-        // Redirect with a success message
-        return redirect()->route('folder.index');
+        return redirect(route('designation.index'));
     }
 }

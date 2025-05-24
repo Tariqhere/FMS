@@ -1,141 +1,137 @@
-
 @extends('backend.layout.auth')
 @section('backend')
 <div class="content-wrapper">
-    <section class="section ms-4 me-4">
-        <div class="col-lg-12">
-            {!! html()->modelForm($model, 'PUT', route('dispatch.update', $model->id))->attribute('enctype', 'multipart/form-data')->id('dispatch-form')->open() !!}
-            <div class="card">
-                <div class="card-body">
-                    <!-- Back Button (Top Right) -->
-                    <div class="col-12">
-                        <a href="{{ route('dispatch.index') }}" class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-3">
-                            <i class="bi bi-arrow-left"></i> Back
-                        </a>
-                    </div>
-
-                    <div class="col-10">
-                        <div class="form-heading">
-                            <h4>Dispatch Edit</h4>
+    <section class="section container-fluid p-3">
+        <div class="row">
+            <div class="col-12">
+                {!! html()->modelForm($model, 'PUT', route('dispatch.update', $model->id))->attribute('enctype', 'multipart/form-data')->id('dispatch-form')->open() !!}
+                <div class="card">
+                    <div class="card-body">
+                        <!-- Back Button (Top Right) -->
+                        <div class="col-12">
+                            <a href="{{ route('dispatch.index') }}" class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-3">
+                                <i class="bi bi-arrow-left"></i> Back
+                            </a>
                         </div>
-                    </div>
-            <!-- First Row: Title, Flag -->
-                    <div class="row">
-                      
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-heading">
+                                    <h4>Dispatch Create</h4>
+                                </div>
+                            </div>
+
                             <!-- First Row: Title, Folder, Flag -->
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-6 mb-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Title <span style="color: red;">*</span>', 'title')->class('form-label') !!}
-                                    {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title') !!}
+                                    {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title')->required() !!}
                                     @error('title')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-3 mb-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Folders')->class('form-label') !!}
                                     {!! html()->select('folder_id', $flags)->class('form-select')->id('folder_id')->placeholder('Select folder')->required() !!}
                                     @error('folder_id')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-3">
+                            <div class="col-12 col-md-3 mb-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Flag')->class('form-label') !!}
                                     {!! html()->select('flag_id', $flags)->class('form-select')->id('flag_id')->placeholder('Select Flag')->required() !!}
                                     @error('flag_id')
-                                    <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
                             <!-- Second Row: Office, Dispatch Number, File Number -->
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="input-block local-forms">
-                                    {!! html()->label('Office<span style="color: red;">*</span>', 'office_id')->class('form-label') !!}
+                                    {!! html()->label('Office <span style="color: red;">*</span>', 'office_id')->class('form-label') !!}
                                     {!! html()->select('office_id', $offices)->class('form-select')->id('office_id')->placeholder('Select Office')->required() !!}
                                     @error('office_id')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Dispatch Number <span style="color: red;">*</span>', 'dispatch_number')->class('form-label') !!}
-                                    {!! html()->text('dispatch_number')->id('dispatch_number')->class('form-control form-control-sm')->placeholder('Enter Dispatch Number') !!}
+                                    {!! html()->text('dispatch_number')->id('dispatch_number')->class('form-control form-control-sm')->placeholder('Enter Dispatch Number')->required() !!}
                                     @error('dispatch_number')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('File Number <span style="color: red;">*</span>', 'file_number')->class('form-label') !!}
-                                    {!! html()->text('file_number')->id('file_number')->class('form-control form-control-sm')->placeholder('Enter File Number') !!}
+                                    {!! html()->text('file_number')->id('file_number')->class('form-control form-control-sm')->placeholder('Enter File Number')->required() !!}
                                     @error('file_number')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <!-- Third Row: Received From, Send To, Date, Time, Complete Date -->
-                            <div class="col-12 col-md-4">
+                            <!-- Third Row: Received From, Send To, Date, Time -->
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Received From <span style="color: red;">*</span>', 'received_from')->class('form-label') !!}
-                                    {!! html()->text('received_from')->id('received_from')->class('form-control form-control-sm')->placeholder('Received From') !!}
+                                    {!! html()->text('received_from')->id('received_from')->class('form-control form-control-sm')->placeholder('Received From')->required() !!}
                                     @error('received_from')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="input-block local-forms">
-                                    {!! html()->label('Send To<span style="color: red;">*</span>', 'send_to')->class('form-label') !!}
-                                    {!! html()->text('send_to')->id('send_to')->class('form-control form-control-sm')->placeholder('Send To') !!}
+                                    {!! html()->label('Send To <span style="color: red;">*</span>', 'send_to')->class('form-label') !!}
+                                    {!! html()->text('send_to')->id('send_to')->class('form-control form-control-sm')->placeholder('Send To')->required() !!}
                                     @error('send_to')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Date')->class('form-label') !!}
                                     {!! html()->date('date')->id('date')->class('form-control form-control-sm')->placeholder('Enter date') !!}
                                     @error('date')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
-                            <div class="col-12 col-md-4">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="input-block local-forms">
-                                    {!! html()->label('Time<span style="color: red;">*</span>', 'dispatch_time')->class('form-label') !!}
-                                    {!! html()->time('dispatch_time')->id('dispatch_time')->class('form-control form-control-sm')->placeholder('Select time') !!}
+                                    {!! html()->label('Time <span style="color: red;">*</span>', 'dispatch_time')->class('form-label') !!}
+                                    {!! html()->time('dispatch_time')->id('dispatch_time')->class('form-control form-control-sm')->placeholder('Select time')->required() !!}
                                     @error('dispatch_time')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
 
                             <!-- Last Row: Description -->
-                            <div class="col-12">
+                            <div class="col-12 mb-3">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Para/Description')->class('form-label') !!}
                                     <div id="editor" class="quill-editor"></div>
                                     <input type="hidden" name="description" id="description">
                                     @error('description')
-                                    <span class="text-danger">{{ $message }}</span>
+                                        <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -146,7 +142,7 @@
                                     <div class="card-body">
                                         <h5 class="card-title">Attachments</h5>
                                         <div id="attachment-container" class="row">
-                                            <div class="col-12 col-md-10 mb-2 attachment-row" data-attachment-id="0">
+                                            <div class="col-12 mb-2 attachment-row" data-attachment-id="0">
                                                 <p class="mb-2">Input Document Attachment</p>
                                                 <div class="input-group flex-grow-1 me-2 position-relative">
                                                     <input type="file" name="attachments[0][]" id="attachment-0" class="form-control form-control-sm attachment-input d-none" accept="image/jpeg,image/png,application/pdf" multiple>
@@ -156,7 +152,7 @@
                                                 </div>
                                                 <div id="attachment-preview-0" class="mt-2 preview-container col-12" style="display: none;"></div>
                                                 @error('attachments.*')
-                                                <span class="text-danger ml-2">{{ $message }}</span>
+                                                    <span class="text-danger ml-2">{{ $message }}</span>
                                                 @enderror
                                             </div>
                                             <div class="col-12 col-md-2 d-flex flex-column align-items-start justify-content-center">
@@ -178,26 +174,29 @@
                                             <input type="text" id="user-search" class="form-control form-control-sm" placeholder="Search by name..." aria-label="Search users">
                                         </div>
                                         <div id="user-container">
-                                            <table class="table table-striped" id="user-table" style="display: none;">
-                                                <thead>
-                                                    <tr>
-                                                        <th>S#</th>
-                                                        <th>Name</th>
-                                                        <th>Cnic_No</th>
-                                                        <th>Email</th>
-                                                        <th>Contact_NO</th>
-                                                        <th>All<input type="checkbox" id="select-all"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="user-table-body"></tbody>
-                                            </table>
+                                            <div class="table-responsive">
+                                                <table class="table" id="user-table" style="display: none;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>S#</th>
+                                                            <th>Name</th>
+                                                            <th>Cnic_No</th>
+                                                            <th>Office</th>
+                                                            <th>Department</th>
+                                                            <th>Contact_NO</th>
+                                                            <th>All<input type="checkbox" id="select-all"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="user-table-body"></tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Submit Button -->
-                            <div class="col-12 text-start mt-3">
+                            <div class="col-12 text-end mt-3">
                                 {!! html()->submit('Submit')->class('btn btn-primary btn-sm')->style('font-size: 12px; padding: 6px 12px;') !!}
                             </div>
                         </div>
@@ -212,14 +211,17 @@
 <!-- jQuery CDN -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!-- SweetAlert2 CDN for Alerts -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- Quill Editor CDN -->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-    <!-- Pass all users from PHP to JS -->
-    <script>
-        const allUsers = @json($users);
-    </script>
+<!-- Pass all users from PHP to JS -->
+<script>
+    const allUsers = @json($users);
+</script>
 
 <!-- JavaScript for form functionality -->
 <script>
@@ -242,8 +244,18 @@
             userTable.style.display = 'none'; // Hide table until users are loaded
             selectAllCheckbox.checked = false; // Reset select all checkbox
 
-            currentFilteredUsers = allUsers.filter(user => user.office_id == selectedOfficeId);
-            updateUserTable(currentFilteredUsers);
+            if (selectedOfficeId) {
+                currentFilteredUsers = allUsers.filter(user => user.office_id == selectedOfficeId);
+                updateUserTable(currentFilteredUsers);
+            } else {
+                currentFilteredUsers = [];
+                updateUserTable([]);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Select an Office',
+                    text: 'Please select an office to view related users.',
+                });
+            }
         });
 
         // Search handler
@@ -271,17 +283,18 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${index + 1}</td>
-                        <td>${user.name || ''}</td>
-                        <td>${user.cnic || ''}</td>
-                        <td>${user.email || ''}</td>
-                        <td>${user.contact || ''}</td>
+                        <td>${user.name || 'N/A'}</td>
+                        <td>${user.cnic || 'N/A'}</td>
+                        <td>${user.office?.title || 'N/A'}</td>
+                        <td>${user.department?.name || 'N/A'}</td>
+                        <td>${user.contact || 'N/A'}</td>
                         <td><input type="checkbox" name="selected_users[]" value="${user.id}"></td>`;
                     userTableBody.appendChild(row);
                 });
                 userTable.style.display = 'table'; // Show table
             } else {
                 const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="6">No users found</td>';
+                row.innerHTML = '<td colspan="7">No users found</td>';
                 userTableBody.appendChild(row);
                 userTable.style.display = 'table'; // Show table with message
             }
@@ -291,7 +304,7 @@
         function addAttachmentFrame() {
             attachmentCount++;
             const newAttachment = document.createElement('div');
-            newAttachment.className = 'col-12 col-md-10 mb-2 attachment-row';
+            newAttachment.className = 'col-12 mb-2 attachment-row';
             newAttachment.setAttribute('data-attachment-id', attachmentCount);
             newAttachment.innerHTML = `
                 <p class="mb-2">Input Document Attachment</p>
@@ -312,8 +325,9 @@
             const newInput = document.getElementById(`attachment-${attachmentCount}`);
             const newText = document.getElementById(`attachment-text-${attachmentCount}`);
             const newPreview = document.getElementById(`attachment-preview-${attachmentCount}`);
-            const newChooseBtn = newInput.closest('.input-group').querySelector('.choose-file-btn');
+            const newChooseBtn = newAttachment.querySelector('.choose-file-btn');
             const newRemoveBtn = newAttachment.querySelector('.remove-attachment-row');
+
             newChooseBtn.addEventListener('click', () => newInput.click());
             newInput.addEventListener('change', () => handleFileSelect(newInput, newText, newPreview));
             newRemoveBtn.addEventListener('click', () => removeAttachmentRow(attachmentCount));
@@ -321,7 +335,15 @@
 
         // Function to remove an attachment row
         function removeAttachmentRow(attachmentId) {
-            if (attachmentId === '0') return; // Prevent removing the first attachment
+            const attachmentRows = attachmentContainer.querySelectorAll('.attachment-row');
+            if (attachmentRows.length <= 1) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Cannot Remove',
+                    text: 'At least one attachment row is required.',
+                });
+                return;
+            }
             const rowToRemove = attachmentContainer.querySelector(`.attachment-row[data-attachment-id="${attachmentId}"]`);
             if (rowToRemove) {
                 rowToRemove.remove();
@@ -336,12 +358,9 @@
         const initialText = document.getElementById('attachment-text-0');
         const initialPreview = document.getElementById('attachment-preview-0');
         const initialChooseBtn = initialInput.closest('.input-group').querySelector('.choose-file-btn');
-        const initialRemoveBtn = initialInput.closest('.input-group').querySelector('.remove-attachment-row');
+
         initialChooseBtn.addEventListener('click', () => initialInput.click());
         initialInput.addEventListener('change', () => handleFileSelect(initialInput, initialText, initialPreview));
-        if (initialRemoveBtn) {
-            initialRemoveBtn.addEventListener('click', () => removeAttachmentRow('0'));
-        }
 
         // Handle file selection and preview
         function handleFileSelect(input, textSpan, previewDiv) {
@@ -384,7 +403,7 @@
                     const replaceBtn = document.createElement('button');
                     replaceBtn.type = 'button';
                     replaceBtn.className = 'btn btn-outline-primary btn-sm replace-file';
-                    removeBtn.textContent = 'Replace';
+                    replaceBtn.textContent = 'Replace';
                     replaceBtn.addEventListener('click', () => replaceFile(input, index));
 
                     fileContainer.appendChild(fileDisplay);
@@ -423,7 +442,7 @@
                 if (tempInput.files.length > 0) {
                     const files = Array.from(input.files);
                     const newFile = tempInput.files[0];
-                    files[indexToRemove] = newFile;
+                    files[indexToReplace] = newFile;
 
                     const dataTransfer = new DataTransfer();
                     files.forEach(file => dataTransfer.items.add(file));
@@ -462,21 +481,22 @@
     });
 </script>
 
-<!-- Minimal CSS -->
+<!-- Updated CSS -->
 <style>
     .content-wrapper {
         width: 100%;
-        max-width: 100%;
-        overflow-x: auto;
-        padding: 15px;
+        overflow-x: hidden;
+        padding: 0;
     }
     .section {
         width: 100%;
-        max-width: 100%;
+        padding: 15px;
     }
     .card {
         width: 100%;
-        max-width: 100%;
+        border: none;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     .input-block.local-forms {
         margin-bottom: 1rem;
@@ -484,9 +504,11 @@
     .form-label {
         font-weight: 500;
         font-size: 0.875rem;
+        color: #495057;
     }
     .form-control-sm, .form-select {
         font-size: 0.875rem;
+        background-color: #f8f9fa;
     }
     .text-danger {
         font-size: 0.8rem;
@@ -495,13 +517,17 @@
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 1rem;
+        color: #343a40;
     }
     .quill-editor {
         min-height: 200px;
         width: 100%;
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0 0 0.25rem 0.25rem;
     }
     .ql-editor {
-        min-height: 200px;
+        min-height: 150px;
         font-family: Helvetica, Arial, sans-serif;
         font-size: 14px;
     }
@@ -510,6 +536,7 @@
     }
     .ql-container {
         border-radius: 0 0 0.25rem 0.25rem;
+        border: none;
     }
     .input-group .form-control.border-0 {
         background: transparent;
@@ -525,7 +552,7 @@
         background: #fff;
         border: 1px solid #dee2e6;
         border-radius: 0.25rem;
-        padding: 0.25rem;
+        padding: 0.5rem;
     }
     .preview-container {
         background: #f8f9fa;
@@ -543,39 +570,86 @@
     .preview-container img {
         margin: 2px 0;
         max-width: 100%;
+        height: auto;
     }
-    table.table-striped {
-        width: 100%;
-        max-width: 100%;
+    .table-responsive {
+        border-radius: 8px;
         overflow-x: auto;
-        display: block;
     }
-    table.table-striped th,
-    table.table-striped td {
-        padding: 8px;
-        text-align: left;
-        white-space: nowrap;
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table thead th {
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 12px 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        vertical-align: middle;
+        border-bottom: 1px solid #dee2e6;
+    }
+    .table tbody td {
+        font-size: 0.875rem;
+        padding: 10px 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #dee2e6;
     }
     #user-search {
         margin-bottom: 10px;
     }
     @media (max-width: 767px) {
+        .section {
+            padding: 10px;
+        }
         .form-control-sm, .form-select {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
         }
         .btn-sm {
             font-size: 0.75rem;
-            padding: 4px 8px;
+            padding: 5px 10px;
         }
         .card-body {
-            padding: 10px;
+            padding: 0.75rem;
         }
         .attachment-row {
-            padding: 0.15rem;
+            padding: 0.25rem;
         }
         .choose-file-btn, .remove-file, .replace-file, #add-attachment, .remove-attachment-row {
             padding: 4px 8px;
             font-size: 0.75rem;
+        }
+        .quill-editor {
+            min-height: 150px;
+        }
+        .ql-editor {
+            min-height: 100px;
+            font-size: 12px;
+        }
+        .table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .table thead th, .table tbody td {
+            min-width: 80px;
+            font-size: 0.75rem;
+            padding: 8px;
+        }
+        .table thead th:nth-child(3), .table tbody td:nth-child(3),
+        .table thead th:nth-child(5), .table tbody td:nth-child(5) {
+            display: none; /* Hide less critical columns on small screens */
+        }
+    }
+    @media (max-width: 576px) {
+        .input-group .form-control.border-0 {
+            font-size: 0.75rem;
+        }
+        .card-title {
+            font-size: 0.9rem;
+        }
+        .form-label {
+            font-size: 0.8rem;
         }
     }
 </style>

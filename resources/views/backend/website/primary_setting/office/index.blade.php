@@ -1,78 +1,71 @@
 @extends('backend.layout.auth')
 
 @section('backend')
-<div class="content-wrapper">
-  <section class="section ms-4 me-4">
-    <div class="content">
-      <!-- /Page Header -->
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="card card-table show-entire">
-            <div class="card-body">
-              <!-- Table Header -->
-              <div class="page-table-header mb-4">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <h3 class="font-weight-bold">Office Index</h3>
-                  </div>
-                  <div class="col-auto text-end">
-                    <a href="{{ route('office.create') }}" class="btn btn-success btn-sm rounded-pill" style="font-size: 8px;">
-                      <i class="fa fa-plus"></i> Create New
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <!-- /Table Header -->
+    <div class="content-wrapper">
+        <section class="section ms-4 me-4">
+            <div class="content">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
 
-              <div class="table-responsive">
-                <table class="table table-striped table-hover custom-table">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th class="text-center">S#</th>
-                      <th>Title</th>
-                      <th>Address</th>
-                      <th>Contact</th>
-                      <th class="text-center">Status</th>
-                      <th class="text-center">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @forelse($models as $model)
-                    <tr>
-                      <td class="text-center">{{ $loop->iteration }}</td>
-                      <td>{{ $model->title ?? 'NA' }}</td>
-                      <td>{{ $model->address ?? 'NA' }}</td>
-                      <td>{{ $model->contact ?? 'NA' }}</td>
-                      <td class="text-center">
-                        <span class="badge bg-success">Active</span>
-                      </td>
-                      <td class="text-center">
-                        <div class="d-flex justify-content-center gap-3">
-                          <!-- Edit Button -->
-                          <a href="{{ route('office.edit', $model->id) }}" title="Edit">
-                            <i class="bi bi-pencil-fill"></i>
-                          </a>
+                        <!-- Card Container -->
+                        <div class="card shadow-sm border-0">
+                            <div class="card-body p-4">
 
-                          <!-- Delete Button with Confirmation -->
-                          <a href="{{ route('office.delete', $model->id) }}" title="Delete" style="color: #dc3545;">
-                              <i class="bi bi-trash"></i>
-                            </a>
-                        </div>
-                      </td>
-                    </tr>
-                    @empty
-                    <tr>
-                      <td colspan="5" class="text-center"><strong>No records found...</strong></td>
-                    </tr>
-                    @endforelse
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+                                <!-- Page Header -->
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h3 class="mb-0">Office Index</h3>
+                                    <a href="{{ route('office.create') }}"
+                                       class="btn btn-outline-primary btn-sm rounded-pill shadow-sm">
+                                        <i class="bi bi-plus-circle me-1"></i> Create
+                                    </a>
+                                </div>
+
+                                <!-- Table -->
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover custom-table">
+                                        <thead class="custom-table-header text-center">
+                                        <tr>
+                                            <th style="width: 5%;">S#</th>
+                                            <th style="width: 40%; text-align: left;">Name</th>
+                                            <th style="width: 25%; text-align: left;">Address</th>
+                                            <th style="width: 25%; text-align: left;">Contact</th>
+                                            <th style="width: 20%;">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @forelse($models as $model)
+                                            <tr>
+                                                <td class="text-center align-middle">{{ $loop->iteration }}</td>
+                                                <td class="align-middle" style="text-align: left;">{{ $model->title ?? 'NA' }}</td>
+                                                <td class="align-middle" style="text-align: left;">{{ $model->address ?? 'NA' }}</td>
+                                                <td class="align-middle" style="text-align: left;">{{ $model->contact ?? 'NA' }}</td>
+                                                <td class="text-center align-middle">
+                                                    <div class="d-flex justify-content-center gap-3">
+                                                        <a href="{{ route('office.edit', $model->id) }}" title="Edit">
+                                                            <i class="bi bi-pencil-fill"></i>
+                                                        </a>
+                                                        <a href="{{ route('office.delete', $model->id) }}" title="Delete" style="color: #dc3545;">
+                                                            <i class="bi bi-trash"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center"><strong>No records found...</strong></td>
+                                            </tr>
+                                        @endforelse
+                                        </tbody>
+                                    </table>
+
+                                </div> <!-- End table-responsive -->
+
+                            </div> <!-- End card-body -->
+                        </div> <!-- End card -->
+
+                    </div> <!-- End col -->
+                </div> <!-- End row -->
+            </div> <!-- End content -->
+        </section>
     </div>
-  </section>
-</div>
 @endsection

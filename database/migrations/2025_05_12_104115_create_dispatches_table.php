@@ -1,5 +1,4 @@
 <?php
-
 use App\Models\Flag;
 use App\Models\Folder;
 use App\Models\Office;
@@ -30,6 +29,7 @@ return new class extends Migration
             $table->json('attachments')->nullable();
             $table->timestamps();
         });
+
     }
 
     /**

@@ -133,7 +133,7 @@
 
       <!-- Primary Settings -->
       <li class="menu-item">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <a class="menu-link menu-toggle">
           <i class="menu-icon tf-icons bx bx-dock-top"></i>
           <div>Primary Settings</div>
         </a>
@@ -155,7 +155,7 @@
         </a>
        <ul class="menu-sub">
           <li class="menu-item">
-            <a href="{{ route('desigination.index') }}" class="menu-link">Designation</a>
+            <a href="{{ route('designation.index') }}" class="menu-link">Designation</a>
           </li>
           <li class="menu-item">
             <a href="{{ route('department.index') }}" class="menu-link">Department</a>
@@ -164,16 +164,28 @@
             <a href="{{ route('office.index') }}" class="menu-link">Office</a>
           </li>
           <li class="menu-item">
-            <a href="folder" class="menu-link">Folders</a>
+            <a href="{{route('folder.index')}}" class="menu-link">Folders</a>
           </li>
           <li class="menu-item">
-            <a href="flag" class="menu-link">Flags</a>
+            <a href="{{route('flag.index')}}" class="menu-link">Flags</a>
+          </li>
+        </ul>
+         <!-- Secondary Settings -->
+      <li class="menu-item">
+        <a  class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-layout"></i>
+          <div>Secondary Settings</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="{{ route('user.index') }}" class="menu-link">Users</a>
+          </li>
+          <li class="menu-item">
+            <a class="menu-link">Roles</a>
           </li>
         </ul>
 
       </li>
-
-
       <!-- Dispatch -->
       <li class="menu-item">
         <a href="{{ route('dispatch.index') }}" class="menu-link">

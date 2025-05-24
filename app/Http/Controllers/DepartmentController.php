@@ -20,21 +20,19 @@ class DepartmentController extends Controller
     // Show the form for creating a new department.
     public function create()
     {
-        $users = User::pluck('name', 'id');
+//        $users = User::pluck('name', 'id');
         return view('backend.website.primary_setting.department.create'); // Load create form
     }
 
     // Store a newly created department in the database.
     public function store(DepartmentRequest $request)
     {
-       
         $model = new Department();
-        $model->name = $request->name;
+        $model->title = $request->title;
         $model->code = $request->code;
-   
         $model->save();
         return redirect()->route('department.index');
-        
+
     }
 
     // Show the form for editing the specified department.
@@ -49,9 +47,8 @@ class DepartmentController extends Controller
     public function update(DepartmentUpdateRequest $request, $id)
 {
         $model = Department::find($id);
-        $model->name = $request->name;
+        $model->title = $request->title;
         $model->code = $request->code;
-    
         $model->save();
         return redirect()->route('department.index')->with('success', 'Department updated successfully!');
     }

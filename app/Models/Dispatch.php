@@ -31,7 +31,6 @@ class Dispatch extends Model
     {
         return $this->belongsTo(Office::class);
     }
-
     public function folder()
     {
         return $this->belongsTo(Folder::class);

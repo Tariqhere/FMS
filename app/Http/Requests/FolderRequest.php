@@ -23,7 +23,7 @@ class FolderRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'code' =>  'nullable|string|max:100',
+            'code' => 'required|string',
         ];
     }
 }
