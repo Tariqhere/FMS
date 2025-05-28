@@ -36,6 +36,12 @@ class OfficeController extends Controller
         $model->address = $request->address;
         $model->contact = $request->contact;
         $model->save();
+         session()->flash('success', 'Office Create successfully!');
+            return redirect()->route('flag.index');
+
+       
+            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
+            return back()->withInput();
         return redirect()->route('office.index');
         
     }
@@ -67,10 +73,16 @@ class OfficeController extends Controller
         $model->address = $request->address;
         $model->contact = $request->contact;
         $model->save();
+        session()->flash('success', 'Office Update successfully!');
+            return redirect()->route('office.index');
+
+       
+            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
+            return back()->withInput();
         return redirect()->route('office.index');
     }
 
-    /**
+    /*
      * Remove the specified resource from storage.
      */
     public function delete(string $id)
@@ -78,8 +90,8 @@ class OfficeController extends Controller
         $model = Office::find($id);
         $model->delete();
     
-        // Redirect with a success message
-        return redirect()->route('office.index')->with('success', 'Department deleted successfully!');
-
+       flash()->success('Office deleted successfully!');
+            return redirect()->route('office.index');
+            flash()->error('Failed to delete office: ' . $e->getMessage());  
     }
 }

@@ -11,7 +11,7 @@ use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DispatchController;
 use App\Http\Controllers\FlagController;
 use App\Http\Controllers\FolderController;
-
+use App\Http\Controllers\StatusController;
 
 // Route::get('/', function () {
 //     return view('frontend.auth.index');
@@ -49,7 +49,12 @@ Route::get('/office/delete/{id}', [OfficeController::class, 'delete'])->name('of
  Route::get('/folder/delete/{id}', [FolderController::class, 'delete'])->name('folder.delete');
                           //dispatch//
  Route::get('/dispatch/delete/{id}', [DispatchController::class, 'delete'])->name('dispatch.delete');
-
+ 
+ Route::get('/dispatch/pending_to_me/{id}', [DispatchController::class, 'pending'])->name('dispatch.pending');
+ Route::get('/dispatch/assinged_to_me/{id}', [DispatchController::class, 'assigned'])->name('dispatch.assigned');
+ Route::get('/dispatch/approved_to_me/{id}', [DispatchController::class,'approved'])->name('dispatch.approved');
+ Route::get('/dispatch/rejected_to_me/{id}', [DispatchController::class,'rejected'])->name('dispatch.rejected');
+ Route::get('/dispatch/returned_to_me/{id}', [DispatchController::class,'returned'])->name('dispatch.returned');
 });
 Auth::routes();
 

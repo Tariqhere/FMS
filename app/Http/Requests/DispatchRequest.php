@@ -21,9 +21,7 @@ class DispatchRequest extends FormRequest
             'dispatch_number' => 'required|string|max:255',
             'file_number' => 'required|string|max:255',
             'date' => 'nullable|date',
-            'dispatch_date' => 'nullable|date',
-            'complete_date' => 'nullable|date',
-            'dispatch_time' => 'required', // Added new field as mandatory
+            'date' => 'nullable|date',
             'send_to' => 'required|string|max:255',
             'received_from' => 'required|string|max:255',
             'description' => 'required|string',

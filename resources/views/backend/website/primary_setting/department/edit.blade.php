@@ -27,9 +27,9 @@
                             <!-- Title Input -->
                             <div class="col-md-6">
                                 <div class="input-block local-forms">
-                                    {!! html()->label('Title')->class('form-label') !!}
-                                    {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title')->value($model->title) !!}
-                                    @error('title')
+                                    {!! html()->label('Name')->class('form-label') !!}
+                                    {!! html()->text('name')->id('name')->class('form-control form-control-sm')->placeholder('Enter Name')->value($model->title) !!}
+                                    @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

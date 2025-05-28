@@ -46,7 +46,7 @@
 {{--                                                <td class="align-middle" style="text-align: left;">{{ $model->cnic ?? 'NA' }}</td>--}}
 {{--                                                <td class="align-middle" style="text-align: left;">{{ $model->contact ?? 'NA' }}</td>--}}
                                                 <td class="align-middle" style="text-align: left;">{{ $model->office->title ?? 'NA' }}</td>
-                                                <td class="align-middle" style="text-align: left;">{{ $model->department->title ?? 'NA' }}</td>
+                                                <td class="align-middle" style="text-align: left;">{{ $model->department->name ?? 'NA' }}</td>
 {{--                                                <td class="align-middle" style="text-align: left;"><img src="{{ asset($model->image) }}"  style="width:40px; height: 40px;">?? 'N/A'</td>--}}
                                                 <td class="align-middle" style="text-align: left;">
                                                     {!! $model->image ? '<img src="' . asset($model->image) . '" style="width:40px; height: 40px;" alt="Image">' : 'N/A' !!}

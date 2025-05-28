@@ -169,23 +169,7 @@
           <li class="menu-item">
             <a href="{{route('flag.index')}}" class="menu-link">Flags</a>
           </li>
-        </ul>
-         <!-- Secondary Settings -->
-      <li class="menu-item">
-        <a  class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-layout"></i>
-          <div>Secondary Settings</div>
-        </a>
-        <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="{{ route('user.index') }}" class="menu-link">Users</a>
-          </li>
-          <li class="menu-item">
-            <a class="menu-link">Roles</a>
-          </li>
-        </ul>
-
-      </li>
+        </ul> 
       <!-- Dispatch -->
       <li class="menu-item">
         <a href="{{ route('dispatch.index') }}" class="menu-link">
@@ -208,16 +192,16 @@
             <a href="{{route('get.dispatch.pending')}}" class="menu-link">Sent</a>
           </li>
           <li class="menu-item">
-            <a href="inbox/returned.html" class="menu-link">Returned</a>
+            <a href="{{ route('dispatch.returned', auth()->user()->id) }}" class="menu-link">Returned</a>
           </li>
           <li class="menu-item">
-            <a href="inbox/rejected.html" class="menu-link">Rejected</a>
+            <a href="{{ route('dispatch.rejected', auth()->user()->id) }}" class="menu-link">Rejected</a>
           </li>
           <li class="menu-item">
-            <a href="inbox/approved.html" class="menu-link">Approved</a>
+            <a href="{{ route('dispatch.approved', auth()->user()->id) }}" class="menu-link">Approved</a>
           </li>
           <li class="menu-item">
-            <a href="inbox/assigned.html" class="menu-link">Assigned</a>
+            <a href="{{ route('dispatch.assigned', auth()->user()->id) }}" class="menu-link">Assigned</a>
           </li>
         </ul>
       </li>

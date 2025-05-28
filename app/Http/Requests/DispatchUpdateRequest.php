@@ -20,7 +20,6 @@ class DispatchUpdateRequest extends FormRequest
             'file_number' => 'required|string|max:255',
             'folder_id' => 'required|exists:folders,id',
             'date' => 'nullable|date',
-            'date' => 'nullable|date',
             'office_id' => 'required|exists:offices,id',
             'received_from' => 'required|string|max:255',
             'send_to' => 'required|string|max:255',

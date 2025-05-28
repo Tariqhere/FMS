@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Department;
+use App\Models\Dispatch;
 use App\Models\Office;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;

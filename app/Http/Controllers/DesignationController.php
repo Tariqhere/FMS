@@ -35,6 +35,12 @@ class DesignationController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
+            session()->flash('success', 'Designation created successfully!');
+            return redirect()->route('designation.index');
+
+       
+            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
+            return back()->withInput();
         return redirect()->route('designation.index');
     }
 
@@ -64,7 +70,14 @@ class DesignationController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-        return redirect()->route('designation.index')->with('success', 'Department updated successfully!');
+        
+            session()->flash('success', 'Designation Upadte successfully!');
+            return redirect()->route('dispatch.index');
+
+       
+            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
+            return back()->withInput();
+        return redirect()->route('designation.index')->with('success', 'Designation updated successfully!');
     }
 
     /**
@@ -74,6 +87,8 @@ class DesignationController extends Controller
     {
         $model=Designation::find($id);
         $model->delete();
-        return redirect(route('designation.index'));
+        flash()->success('Designation deleted successfully!');
+            return redirect()->route('designation.index');
+            flash()->error('Failed to delete Designation: ' . $e->getMessage());;
     }
 }

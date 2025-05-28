@@ -102,34 +102,35 @@
                             </div>
 
                             <!-- Attachments Card -->
-                            <div class="col-12 mt-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Attachments</h5>
-                                        @if($model->attachments && $model->attachments->count() > 0)
-                                            <div class="row">
-                                                @foreach($model->attachments as $attachment)
-                                                    <div class="col-12 col-md-4 mb-3">
-                                                        <div class="attachment-preview border rounded p-2 text-center">
-                                                            @if(in_array(strtolower($attachment->extension), ['jpg', 'jpeg', 'png']))
-                                                                <img src="{{ asset('storage/' . $attachment->path) }}" alt="{{ $attachment->name }}" class="img-fluid mb-2" style="max-height: 100px;">
-                                                            @else
-                                                                <i class="bi bi-file-earmark-pdf text-danger fs-3 mb-2"></i>
-                                                                <p class="mb-0">{{ $attachment->name }}</p>
-                                                            @endif
-                                                            <a href="{{ asset('storage/' . $attachment->path) }}" target="_blank" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="tooltip" title="View Attachment">
-                                                                View
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <p class="text-muted">No attachments available.</p>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
+                           <div class="col-12 mt-3">
+                             <div class="card">
+                                <div class="card-body">
+                                         <h5 class="card-title">Attachments</h5>
+                                     @if($model->attachmentFiles && $model->attachmentFiles->count() > 0)
+    <div class="row">
+        @foreach($model->attachmentFiles as $attachment)
+            <div class="col-12 col-md-4 mb-3">
+                <div class="attachment-preview border rounded p-2 text-center">
+                    @if(in_array(strtolower(pathinfo($attachment->file_name, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png']))
+                        <img src="{{ asset('storage/' . $attachment->file_path) }}" alt="{{ $attachment->file_name }}" class="img-fluid mb-2" style="max-height: 100px;">
+                    @else
+                        <i class="bi bi-file-earmark-pdf text-danger fs-3 mb-2"></i>
+                        <p class="mb-0">{{ $attachment->file_name }}</p>
+                    @endif
+                    <a href="{{ asset('storage/' . $attachment->file_path) }}" target="_blank" class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="tooltip" title="View Attachment">
+                        View
+                    </a>
+                </div>
+            </div>
+        @endforeach
+    </div>
+@else
+    <p class="text-muted">No attachments available.</p>
+@endif
+                                                   </div>
+                                                   </div>
+                             </div>
+
 
                             <!-- Users Table Card -->
                             <div class="col-12 mt-3">

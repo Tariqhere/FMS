@@ -35,7 +35,7 @@
                                         @forelse($models as $model)
                                             <tr>
                                                 <td class="text-center align-middle">{{ $loop->iteration }}</td>
-                                                <td class="align-middle" style="text-align: left;">{{ $model->title ?? 'NA' }}</td>
+                                                <td class="align-middle" style="text-align: left;">{{ $model->name ?? 'NA' }}</td>
                                                 <td class="align-middle" style="text-align: left;">{{ $model->code ?? 'NA' }}</td>
                                                 <td class="text-center align-middle">
                                                     <div class="d-flex justify-content-center gap-3">
