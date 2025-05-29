@@ -21,9 +21,9 @@
                                     <div class="col">
                                         <h3 class="font-weight-bold">Assigned Index</h3>
                                     </div>
-                                    <div class="col-auto text-end">
-                                        <a href="{{ route('dispatch.index') }}" class="btn btn-primary btn-sm me-3">BAck</a>
-                                    </div>
+{{--                                    <div class="col-auto text-end">--}}
+{{--                                        <a href="{{ route('dispatch.index') }}" class="btn btn-primary btn-sm me-3">BAck</a>--}}
+{{--                                    </div>--}}
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -45,7 +45,7 @@
                                         @forelse($models as $model)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $model->title ?? 'NA' }}</td>
+                                                <td>{{ $model->dispatch->title ?? 'NA' }}</td>
                                                 <td>{{ $model->folder->title ?? 'NA' }}</td>
                                                 <td>{{ $model->flag->title ?? 'NA' }}</td>
                                                 <td>{{ $model->office->title ?? 'NA' }}</td>
@@ -54,7 +54,7 @@
                                                 <td>{{ strip_tags($model->description) ?? 'N/A' }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center gap-3">
-                                            
+
                                                         <a href="{{ route('dispatch.edit', $model->id) }}" title="Edit">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </a>
@@ -64,7 +64,7 @@
 
                                                         <!-- 👇 Show Details Button (DispatchDetails) -->
                                                         <a href="{{ route('dispatch.show', $model->id) }}" title="Show Details">
-                                                          <i class="bi bi-list-ul"></i>                                                       
+                                                          <i class="bi bi-list-ul"></i>
                                                           </a>
                                                     </div>
                                                 </td>

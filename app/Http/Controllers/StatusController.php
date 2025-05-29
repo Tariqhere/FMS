@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dispatch;
 use Illuminate\Http\Request;
-use App\Models\DispatchDetails;
+use App\Models\DispatchDetail;
 use Illuminate\Database\Eloquent\Model;
 
 class StatusController extends Controller
@@ -12,11 +12,11 @@ class StatusController extends Controller
     /**
      * Display a listing of the resource.
      */
-   
+
           public function assigned($id){
-        $models = DispatchDetails::with('dispatch', 'dispatch.dispatchDocuments')->OfAssignedToMe()->where('status', 1)->get();
+        $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->OfAssignedToMe()->where('status', 1)->get();
        return view('backend.website.inbox.assigned.index', compact('models'));
-        
+
     }
 
         public function getAssignedStatus($id){
@@ -27,8 +27,8 @@ class StatusController extends Controller
             return back();
 
         }
-    
- 
+
+
         public function getApprovedStatus($id){
 
             $models = Dispatch::find($id);

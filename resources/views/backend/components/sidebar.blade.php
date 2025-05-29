@@ -169,7 +169,7 @@
           <li class="menu-item">
             <a href="{{route('flag.index')}}" class="menu-link">Flags</a>
           </li>
-        </ul> 
+        </ul>
       <!-- Dispatch -->
       <li class="menu-item">
         <a href="{{ route('dispatch.index') }}" class="menu-link">

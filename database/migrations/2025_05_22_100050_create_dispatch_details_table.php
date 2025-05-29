@@ -18,7 +18,7 @@ return new class extends Migration
              $table->foreignIdFor(Dispatch::class)->nullable()->onDelete('cascade');;
              $table->foreignIdFor(User::class)->nullable()->constrained();
                 $table->string('remark')->nullable();
-             $table->tinyInteger('status')->default(0)->comment('0=Pending, 1=Approved, 2=Rejected, 3=Returned, 4=Recommended')->nullable();
+             $table->tinyInteger('status')->default(0)->nullable();
             $table->timestamps();
         });
     }

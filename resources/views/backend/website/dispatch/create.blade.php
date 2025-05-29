@@ -12,7 +12,7 @@
                                 </a>
                             </div>
                     <div class="card-body">
-                        {!! html()->form('POST', route('dispatch.store'))->attribute('enctype', 'multipart/form-data')->id('dispatch-form')->open() !!}
+                        {!! html()->form('POST', route('dispatch.store'))->attribute('enctype', 'multipart/form-data')->id('dispatch-forms')->open() !!}
                         @csrf
                         <div class="row">
 
@@ -146,7 +146,7 @@
                                             <div class="col-12 col-md-10 mb-2 attachment-row" data-attachment-id="0">
                                                 <p class="mb-2">Input Document Attachment</p>
                                                 <div class="input-group flex-grow-1 me-2 position-relative">
-                                                    <input type="file" name="attachments[0][]" id="attachment-0" class="form-control form-control-sm attachment-input d-none" accept="image/jpeg,image/png,application/pdf" multiple>
+                                                    <input type="file" name="attachments[]" id="attachment-0" class="form-control form-control-sm attachment-input d-none" multiple>
                                                     <button type="button" class="btn btn-outline-secondary btn-sm choose-file-btn">Choose File</button>
                                                     <span id="attachment-text-0" class="form-control form-control-sm border-0" style="margin-left: 10px">No file chosen</span>
                                                     <button type="button" class="btn btn-outline-danger btn-sm remove-attachment-row d-none" data-attachment-id="0">Remove</button>

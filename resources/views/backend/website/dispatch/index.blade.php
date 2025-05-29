@@ -54,7 +54,7 @@
                                                 <td>{{ strip_tags($model->description) ?? 'N/A' }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center gap-3">
-                                            
+
                                                         <a href="{{ route('dispatch.edit', $model->id) }}" title="Edit">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </a>
@@ -63,9 +63,10 @@
                                                         </a>
                                                             <!-- 👇 Show Details Button (DispatchDetails) -->
                                                         <a href="{{ route('dispatch.show', $model->id) }}" title="Show Details">
-                                                          <i class="bi bi-list-ul"></i>  
-                                                         </a>
-                                                        </div>
+                                                            <i class="bi bi-eye"></i>
+{{--                                                        </a>  <a href="{{ route('assigned.index', $model->id) }}" title="Show Details">--}}
+{{--                                                          <i class="bi bi-list-ul"></i>--}}
+{{--                                                         </a>--}}
                                                     </div>
                                                 </td>
                                             </tr>

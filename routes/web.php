@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\AssignedController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -22,45 +22,47 @@ Route::get('/', function () {
 })->name('login');
 
 
-Route::middleware('auth')->prefix('backend')->group(function(){
+Route::middleware('auth')->prefix('backend')->group(function() {
 
-Route::resources([
+    Route::resources([
 
-    'department'      => DepartmentController::class,
-    'user'           =>  UserController::class,
-    'designation'    => DesignationController::class,
-    'office'         => OfficeController::class,
-    'flag'           =>FlagController::class,
-    'folder'         =>FolderController::class,
-    'dispatch'       =>DispatchController::class,
+        'department' => DepartmentController::class,
+        'user' => UserController::class,
+        'designation' => DesignationController::class,
+        'office' => OfficeController::class,
+        'flag' => FlagController::class,
+        'folder' => FolderController::class,
+        'dispatch' => DispatchController::class,
+        'assigned' => AssignedController::class,
 
- ]);
+    ]);
 //    department
-Route::get('/department/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
-                           //user//
-Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
-                        //designation//
-Route::get('/designation/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
-                        //office//
-Route::get('/office/delete/{id}', [OfficeController::class, 'delete'])->name('office.delete');
-                         //flag//
- Route::get('/flag/delete/{id}', [FlagController::class, 'delete'])->name('flag.delete');
-                         //folder//
- Route::get('/folder/delete/{id}', [FolderController::class, 'delete'])->name('folder.delete');
-                          //dispatch//
- Route::get('/dispatch/delete/{id}', [DispatchController::class, 'delete'])->name('dispatch.delete');
- 
- Route::get('/dispatch/pending_to_me/{id}', [DispatchController::class, 'pending'])->name('dispatch.pending');
- Route::get('/dispatch/assinged_to_me/{id}', [DispatchController::class, 'assigned'])->name('dispatch.assigned');
+    Route::get('/department/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
+    //user//
+    Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user.delete');
+    //designation//
+    Route::get('/designation/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
+    //office//
+    Route::get('/office/delete/{id}', [OfficeController::class, 'delete'])->name('office.delete');
+    //flag//
+    Route::get('/flag/delete/{id}', [FlagController::class, 'delete'])->name('flag.delete');
+    //folder//
+    Route::get('/folder/delete/{id}', [FolderController::class, 'delete'])->name('folder.delete');
+    //dispatch//
+    Route::get('/dispatch/delete/{id}', [DispatchController::class, 'delete'])->name('dispatch.delete');
+
+
+    Route::get('/dispatch/pending_to_me', [DispatchController::class, 'pending'])->name('get.dispatch.pending');
+ Route::get('/dispatch/assigned_to_me/{id}', [DispatchController::class, 'assigned'])->name('dispatch.assigned');
  Route::get('/dispatch/approved_to_me/{id}', [DispatchController::class,'approved'])->name('dispatch.approved');
  Route::get('/dispatch/rejected_to_me/{id}', [DispatchController::class,'rejected'])->name('dispatch.rejected');
  Route::get('/dispatch/returned_to_me/{id}', [DispatchController::class,'returned'])->name('dispatch.returned');
 });
-Auth::routes();
+    Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 //scopes
-Route::get('/get/dispatch/pending', [App\Http\Controllers\DispatchController::class, 'pendingDispatch'])->name('get.dispatch.pending');
+//    Route::get('/get/dispatch/pending', [App\Http\Controllers\DispatchController::class, 'pendingDispatch'])->name('get.dispatch.pending');
 
 

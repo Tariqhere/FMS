@@ -349,7 +349,7 @@
             newAttachment.innerHTML = `
                 <p class="mb-2">Input Document Attachment</p>
                 <div class="input-group flex-grow-1 me-2 position-relative">
-                    <input type="file" name="attachments[${attachmentCount}][]" id="attachment-${attachmentCount}" class="form-control form-control-sm attachment-input d-none" accept="image/jpeg,image/png,application/pdf" multiple>
+                    <input type="file" name="attachments[${attachmentCount}]" id="attachment-${attachmentCount}" class="form-control form-control-sm attachment-input d-none" accept="image/jpeg,image/png,application/pdf" multiple>
                     <button type="button" class="btn btn-outline-secondary btn-sm choose-file-btn">Choose File</button>
                     <span id="attachment-text-${attachmentCount}" class="form-control form-control-sm border-0" style="margin-left: 10px">No file chosen</span>
                     <button type="button" class="btn btn-outline-danger btn-sm remove-attachment-row" data-attachment-id="${attachmentCount}">Remove</button>
