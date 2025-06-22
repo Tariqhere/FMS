@@ -3,12 +3,12 @@
 function getDispatchStatus($status)
     {
         $statuses = [
-            0 => 'Submit',
-            1 => 'Approve',
-            2 => 'Reject',
-            3 => 'Return',
-            4 => 'Recommend',
+            0 => 'Submitted',
+            1 => 'Approved',
+            2 => 'Rejected',
+            3 => 'Returned',
+            4 => 'Recommended',
         ];
-        
+
     return $statuses[$status] ?? 'Unknown';
     }

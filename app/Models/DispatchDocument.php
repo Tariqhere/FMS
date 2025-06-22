@@ -16,8 +16,9 @@ class DispatchDocument extends Model
         'status'
     ];
 
-    public function dispatch()
+    public function dispatchs()
     {
         return $this->belongsTo(Dispatch::class);
     }
+
 }

@@ -2,9 +2,9 @@
 
 @section('backend')
     <div class="content-wrapper">
-        <section class="section ms-4 me-4">
+        <section class="section ms-4">
             <div class="content">
-                <div class="row justify-content-center">
+                <div class="row justify-content-left">
                     <div class="col-lg-10">
 
                         <!-- Card Container -->
@@ -35,7 +35,7 @@
                                         @forelse($models as $model)
                                             <tr>
                                                 <td class="text-center align-middle">{{ $loop->iteration }}</td>
-                                                <td class="align-middle" style="text-align: left;">{{ $model->title ?? 'NA' }}</td>
+                                                <td class="align-middle" style="text-align: left;">{{ $model->name ?? 'NA' }}</td>
                                                 <td class="align-middle" style="text-align: left;">{{ $model->code ?? 'NA' }}</td>
                                                 <td class="text-center align-middle">
                                                     <div class="d-flex justify-content-center gap-3">

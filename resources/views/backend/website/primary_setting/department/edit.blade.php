@@ -1,8 +1,8 @@
 @extends('backend.layout.auth')
 @section('backend')
     <div class="content-wrapper">
-        <section class="section ms-4 me-4">
-            <div class="col-lg-8 mx-auto"> <!-- Centered Card -->
+        <section class="section ms-4">
+            <div class="col-lg-8"> <!-- Centered Card -->
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
 
@@ -27,9 +27,9 @@
                             <!-- Title Input -->
                             <div class="col-md-6">
                                 <div class="input-block local-forms">
-                                    {!! html()->label('Title')->class('form-label') !!}
-                                    {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title')->value($model->title) !!}
-                                    @error('title')
+                                    {!! html()->label('Name')->class('form-label') !!}
+                                    {!! html()->text('name')->id('name')->class('form-control form-control-sm')->placeholder('Enter Name')->value($model->title) !!}
+                                    @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

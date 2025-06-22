@@ -2,6 +2,7 @@
 use App\Models\Flag;
 use App\Models\Folder;
 use App\Models\Office;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -23,10 +24,13 @@ return new class extends Migration
              $table->string('file_number')->nullable();
              $table->string('description')->nullable();
              $table->date('date')->nullable(); // Changed from string to date
-             $table->time('dispatch_time')->nullable();
+             $table->time('time')->nullable();
              $table->string('received_from')->nullable();
              $table->string('send_to')->nullable();
             $table->json('attachments')->nullable();
+            $table->tinyInteger('status')->default(0);
+
+        
             $table->timestamps();
         });
 

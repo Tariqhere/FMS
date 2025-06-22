@@ -30,6 +30,13 @@
                                 <input type="text" class="form-control form-control-sm" value="{{ $model->email }}" disabled>
                             </div>
 
+                            <!-- Password -->
+                          <div class="col-md-6">
+                              <label class="form-label">Password</label>
+                              <input type="text" class="form-control form-control-sm" value="********" disabled>
+                          </div>
+
+
                             <!-- CNIC -->
                             <div class="col-md-6">
                                 <label class="form-label">CNIC</label>

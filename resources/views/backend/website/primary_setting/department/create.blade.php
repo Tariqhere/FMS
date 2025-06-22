@@ -1,11 +1,10 @@
 @extends('backend.layout.auth')
 @section('backend')
     <div class="content-wrapper">
-        <section class="section ms-4 me-4">
-            <div class="col-lg-8 mx-auto"> <!-- Centered Card -->
+        <section class="section ms-4">
+            <div class="col-lg-8">
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
-
                         <!-- Back Button -->
                         <div class="d-flex justify-content-end mb-2">
                             <a href="{{ route('department.index') }}"
@@ -16,20 +15,20 @@
                         </div>
 
                         <!-- Form -->
-                        {!! html()->form('POST', route('department.store'))->attribute('enctype', 'multipart/form-data')->open() !!}
+                        {!! html()->form('POST', route('department.store'))->open() !!}
+                        {!! csrf_field() !!}
                         <div class="row g-3">
-
                             <!-- Form Heading -->
                             <div class="col-12">
-                                <h4 class=" mb-3">Create Department</h4>
+                                <h4 class="mb-3">Create Department</h4>
                             </div>
 
                             <!-- Title Input -->
                             <div class="col-md-6">
                                 <div class="input-block local-forms">
-                                    {!! html()->label('Title')->class('form-label') !!}
-                                    {!! html()->text('title')->id('title')->class('form-control form-control-sm')->placeholder('Enter Title') !!}
-                                    @error('title')
+                                    {!! html()->label('Name')->class('form-label') !!}
+                                    {!! html()->text('name')->id('name')->class('form-control form-control-sm')->placeholder('Enter Name')->value(old('name')) !!}
+                                    @error('name')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -39,7 +38,7 @@
                             <div class="col-md-6">
                                 <div class="input-block local-forms">
                                     {!! html()->label('Code')->class('form-label') !!}
-                                    {!! html()->text('code')->id('code')->class('form-control form-control-sm')->placeholder('Enter Code') !!}
+                                    {!! html()->text('code')->id('code')->class('form-control form-control-sm')->placeholder('Enter Code')->value(old('code')) !!}
                                     @error('code')
                                     <span class="text-danger">{{ $message }}</span>
                                     @enderror

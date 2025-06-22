@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('dispatch_documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Dispatch::class)->nullable()->constrained();
+            $table->foreignIdFor(Dispatch::class)->constrained()->onDelete('cascade');
             $table->string('title')->nullable();
-            $table->string('file');  
+            $table->string('file');
             $table->tinyInteger('status')->default(0)->nullable();
             $table->timestamps();
         });

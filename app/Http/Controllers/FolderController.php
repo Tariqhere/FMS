@@ -35,6 +35,7 @@ class FolderController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
+            return redirect()->route('folder.index');
         return redirect()->route('folder.index');
     }
 
@@ -64,7 +65,8 @@ class FolderController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-        return redirect()->route('folder.index');
+            return redirect()->route('folder.index');
+
     }
 
     /**
@@ -74,8 +76,8 @@ class FolderController extends Controller
     {
         $model = Folder::find($id);
         $model->delete();
-
-        // Redirect with a success message
-        return redirect()->route('folder.index');
+           $model->save();
+            return redirect()->route('folder.index');
+       
     }
 }

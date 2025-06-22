@@ -26,7 +26,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover custom-table">
                                     <thead class="thead-dark">
@@ -34,13 +33,9 @@
                                             <th class="text-center">S#</th>
                                             <th>Title</th>
                                             <th>Folders</th>
-                                            {{-- <th>Dispatch Number</th>
-                                            <th>File Number</th> --}}
                                             <th>Flags</th>
                                             <th>Office</th>
                                             <th>Date</th>
-                                            {{-- <th>Dispatch Time</th> --}}
-                                            {{-- <th>Received From</th> --}}
                                             <th>Send To</th>
                                             <th>Description</th>
                                             <th>Actions</th>
@@ -52,26 +47,26 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $model->title ?? 'NA' }}</td>
                                                 <td>{{ $model->folder->title ?? 'NA' }}</td>
-                                                {{-- <td>{{ $model->dispatch_number ?? 'NA' }}</td>
-                                                <td>{{ $model->file_number ?? 'NA' }}</td> --}}
                                                 <td>{{ $model->flag->title ?? 'NA' }}</td>
                                                 <td>{{ $model->office->title ?? 'NA' }}</td>
                                                 <td>{{ $model->date ?? 'NA' }}</td>
-                                                {{-- <td>{{ $model->dispatch_time ? \Carbon\Carbon::createFromFormat('H:i:s', $model->dispatch_time)->format('h:i A') : 'NA' }}</td> --}}
-                                                {{-- <td>{{ $model->received_from ?? 'NA' }}</td> --}}
                                                 <td>{{ $model->send_to ?? 'NA' }}</td>
                                                 <td>{{ strip_tags($model->description) ?? 'N/A' }}</td>
                                                 <td class="text-center">
                                                     <div class="d-flex justify-content-center gap-3">
-                                                        <a href="{{ route('dispatch.show', $model->id) }}" title="Show">
-                                                            <i class="bi bi-eye"></i>
-                                                        </a>
+
                                                         <a href="{{ route('dispatch.edit', $model->id) }}" title="Edit">
                                                             <i class="bi bi-pencil-fill"></i>
                                                         </a>
                                                         <a href="{{ route('dispatch.delete', $model->id) }}" title="Delete" style="color: #dc3545;">
                                                             <i class="bi bi-trash"></i>
                                                         </a>
+                                                            <!-- 👇 Show Details Button (DispatchDetails) -->
+                                                        <a href="{{ route('dispatch.show', $model->id) }}" title="Show Details">
+                                                            <i class="bi bi-eye"></i>
+{{--                                                        </a>  <a href="{{ route('assigned.index', $model->id) }}" title="Show Details">--}}
+{{--                                                          <i class="bi bi-list-ul"></i>--}}
+{{--                                                         </a>--}}
                                                     </div>
                                                 </td>
                                             </tr>

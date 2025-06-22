@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\AttachmentFile;
 use Illuminate\Database\Eloquent\Model;
+
+
 
 class Dispatch extends Model
 {
@@ -38,6 +40,16 @@ class Dispatch extends Model
 
   public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
+
+    public function dispatchDocuments(){
+        return $this->hasMany(DispatchDocument::class);
+    }
+
+    public function dispatchDetails()
+    {
+        return $this->hasMany(DispatchDetail::class);
+    }
+  
 }

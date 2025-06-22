@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\Department;
 use App\Models\Office;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $departments = Department::pluck('title','id');
+        $departments = Department::pluck('name','id');
         $offices = Office::pluck('title','id');
       return view('backend.website.secondary_setting.user.create',compact('departments','offices'));
     }
@@ -39,6 +40,7 @@ class UserController extends Controller
         $model = new User();
         $model->name = $request->name;
         $model->email = $request->email;
+        $model->password = Hash::make($request->password);
         $model->cnic = $request->cnic;
         $model->office_id = $request->office_id;
         $model->department_id = $request->department_id;
@@ -52,7 +54,13 @@ class UserController extends Controller
 
         $model ->save();
 
-        return redirect()->route('user.index')->with('success', 'User updated successfully.');
+      session()->flash('success', 'User Update successfully!');
+            return redirect()->route('user.index');
+
+       
+            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
+            return back()->withInput();
+        return redirect()->route('user.index');
     }
 
     /**
@@ -70,7 +78,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
     $model = User::with('department','office')->find($id);
-    $departments = Department::pluck('title','id');
+    $departments = Department::pluck('name','id');
     $offices = Office::pluck('title','id');
     return view('backend.website.secondary_setting.user.edit',compact('model','departments','offices'));
     }
@@ -83,6 +91,7 @@ class UserController extends Controller
         $model = User::find($id);
         $model->name = $request->name;
          $model->email = $request->email;
+         $model->password = Hash::make($request->password);
          $model->cnic = $request->cnic;
          $model->office_id = $request->office_id;
         $model->department_id = $request->department_id;
@@ -92,9 +101,8 @@ class UserController extends Controller
             $path = $request->image->move('assets/user', $imageName);
             $model->image = $path;
         }
-
         $model->save();
-        return redirect()->route('user.index')->with('success', 'User updated successfully.');
+        return redirect()->route('office.index');
     }
 
     /**
@@ -104,7 +112,6 @@ class UserController extends Controller
     {
         $model = User::find($id);
         $model->delete();
-        // Redirect with a success message
-        return redirect()->route('user.index')->with('success', 'Department deleted successfully!');
-    }
+            return redirect()->route('user.index');
+    }       
 }

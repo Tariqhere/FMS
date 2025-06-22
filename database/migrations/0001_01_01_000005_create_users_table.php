@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Department;
+use App\Models\Dispatch;
 use App\Models\Office;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -19,7 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Department::class)->nullable()->constrained();
             $table->foreignIdFor(Office::class)->nullable()->constrained();
             $table->string('name')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email')->nullable(); 
             $table->string('image')->nullable();
             $table->string('contact')->nullable();
             $table->string('cnic')->nullable();

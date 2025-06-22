@@ -35,6 +35,7 @@ class DesignationController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
+          
         return redirect()->route('designation.index');
     }
 
@@ -64,7 +65,8 @@ class DesignationController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-        return redirect()->route('designation.index')->with('success', 'Department updated successfully!');
+        
+        return redirect()->route('designation.index')->with('success', 'Designation updated successfully!');
     }
 
     /**
@@ -74,6 +76,7 @@ class DesignationController extends Controller
     {
         $model=Designation::find($id);
         $model->delete();
-        return redirect(route('designation.index'));
+            return redirect()->route('designation.index');
+          
     }
 }

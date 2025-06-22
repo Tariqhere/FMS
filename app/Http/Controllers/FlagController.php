@@ -35,6 +35,7 @@ class FlagController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
+            return redirect()->route('flag.index');
         return redirect()->route('flag.index');
     }
 
@@ -64,7 +65,9 @@ class FlagController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-        return redirect()->route('flag.index');
+    
+            return redirect()->route('flag.index');
+         
     }
 
     /**
@@ -74,7 +77,8 @@ class FlagController extends Controller
     {
         $model = Flag::find($id);
         $model->delete();
-        // Redirect with a success message
-        return redirect()->route('flag.index');
+        $model->save();
+            return redirect()->route('flag.index');
+              
     }
 }
