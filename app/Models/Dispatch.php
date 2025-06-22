@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Models;
-
-
 use App\Models\AttachmentFile;
 use Illuminate\Database\Eloquent\Model;
 
@@ -48,13 +46,10 @@ class Dispatch extends Model
     public function dispatchDocuments(){
         return $this->hasMany(DispatchDocument::class);
     }
- public function attachmentFiles()
-    {
-        return $this->hasMany(AttachmentFile::class);
-    }
 
     public function dispatchDetails()
     {
         return $this->hasMany(DispatchDetail::class);
     }
+  
 }

@@ -2,9 +2,9 @@
 
 @section('backend')
     <div class="content-wrapper">
-        <section class="section ms-4 me-4">
+        <section class="section ms-4">
             <div class="content">
-                <div class="row justify-content-center">
+                <div class="row justify-content-left">
                     <div class="col-lg-10">
 
                         <!-- Card Container -->

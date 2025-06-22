@@ -2,6 +2,7 @@
 use App\Models\Flag;
 use App\Models\Folder;
 use App\Models\Office;
+use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;

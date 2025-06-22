@@ -45,18 +45,16 @@
                                 </div>
                             </div>
 
-
-                            {{--                            <!-- Image Input -->--}}
-{{--                            <div class="col-md-6">--}}
-{{--                                <div class="input-block local-forms">--}}
-{{--                                    {!! html()->label('Image')->class('form-label') !!}--}}
-{{--                                    {!! html()->file('image')->id('image')->class('form-control form-control-sm')->accept('image/*') !!}--}}
-{{--                                    @error('Image')--}}
-{{--                                    <span class="text-danger">{{ $message }}</span>--}}
-{{--                                    @enderror--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
+                         <!-- Password Input -->
+                            <div class="col-md-6">
+                                <div class="input-block local-forms">
+                                    {!! html()->label('Password')->class('form-label') !!}
+                                     {!! html()->password('password')->id('password')->class('form-control form-control-sm')->placeholder('Enter Password') !!}
+                                  @error('password')
+                                  <span class="text-danger">{{ $message }}</span>
+                                   @enderror
+                                 </div>
+                            </div>
                             <!-- Cnic Input -->
                             <div class="col-md-6">
                                 <div class="input-block local-forms">

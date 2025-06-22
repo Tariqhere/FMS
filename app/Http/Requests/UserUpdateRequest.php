@@ -26,6 +26,7 @@ class UserUpdateRequest extends FormRequest
            'office_id' => 'required|exists:offices,id',
             'name' => 'required|string|max:255',
             'email' => 'nullable|email|',
+            'password' => 'required|string|min:8',
            'image' => 'nullable|image|max:2048',
             'cnic' => 'nullable|string|max:25',
             'contact' => 'nullable|string|max:15',

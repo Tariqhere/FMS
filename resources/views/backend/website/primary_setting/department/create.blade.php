@@ -1,8 +1,8 @@
 @extends('backend.layout.auth')
 @section('backend')
     <div class="content-wrapper">
-        <section class="section ms-4 me-4">
-            <div class="col-lg-8 mx-auto">
+        <section class="section ms-4">
+            <div class="col-lg-8">
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-4">
                         <!-- Back Button -->

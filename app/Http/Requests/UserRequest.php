@@ -26,6 +26,7 @@ class UserRequest extends FormRequest
            'office_id' => 'required|exists:offices,id',
            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8',
            'image' => 'nullable|image|max:2048',
             'cnic' => 'required|string|max:25',
             'contact' =>'required|string|max:15',

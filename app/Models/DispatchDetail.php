@@ -31,9 +31,35 @@ class DispatchDetail extends Model
         return $this->hasMany(DispatchDetailDocument::class);
     }
 
-    public function scopeOfAssignedToMe($query)
+
+     public function scopeOfAssignedToMe($query)
     {
-        return $query->where('user_id', auth()->user()->id);
+         return $query->where('user_id', auth()->user()->id)->where('status',  0);
     }
+
+   
+
+ public function scopeApproved($query)
+ {
+     return $query->where('status', 1);
+ }
+
+ public function scopeRejected($query)
+ {
+     return $query->where('status', 2);
+ }
+
+ public function scopeReturned($query)
+ {
+     return $query->where('status', 3);
+ }
+
+ public function scopeRecommended($query)
+ {
+     return $query->where('status', 4);
+ }
+
+
+  
 }
 

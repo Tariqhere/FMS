@@ -35,13 +35,7 @@ class FlagController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-        
-            session()->flash('success', 'Flag created successfully!');
             return redirect()->route('flag.index');
-
-       
-            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
-            return back()->withInput();
         return redirect()->route('flag.index');
     }
 
@@ -71,13 +65,9 @@ class FlagController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-        session()->flash('success', 'Flag Update successfully!');
+    
             return redirect()->route('flag.index');
-
-       
-            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
-            return back()->withInput();
-        return redirect()->route('flag.index');
+         
     }
 
     /**
@@ -88,8 +78,7 @@ class FlagController extends Controller
         $model = Flag::find($id);
         $model->delete();
         $model->save();
-        flash()->success('Flag deleted successfully!');
             return redirect()->route('flag.index');
-            flash()->error('Failed to delete Flag: ' . $e->getMessage());    
+              
     }
 }

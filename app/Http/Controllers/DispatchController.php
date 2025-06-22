@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Http\Requests\DispatchRequest;
 use App\Http\Requests\DispatchUpdateRequest;
 use App\Models\Department;
@@ -14,7 +12,6 @@ use App\Models\Office;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 class DispatchController extends Controller
 {
     public function index()
@@ -24,14 +21,12 @@ class DispatchController extends Controller
         ->get();
         return view('backend.website.dispatch.index', compact('models'));
     }
-
     public function create()
     {
         $flags = Flag::pluck('title', 'id');
         $offices = Office::pluck('title', 'id');
         $departments = Department::pluck('name', 'id');
         $folders = Folder::pluck('title', 'id');
-
         $users = User::select('id', 'name', 'cnic', 'contact', 'office_id', 'department_id')
             ->with(['office:id,title', 'department:id,name'])
             ->get()
@@ -47,16 +42,13 @@ class DispatchController extends Controller
                     'department' => $user->department ? ['name' => $user->department->name ?? 'N/A'] : null,
                 ];
             });
-
         return view('backend.website.dispatch.create', compact('flags', 'offices', 'departments', 'folders', 'users'));
     }
-
     public function store(DispatchRequest $request)
     {
         db::beginTransaction();
         try {
             $model = new Dispatch();
-
             $model->flag_id         = $request->flag_id;
             $model->folder_id       = $request->folder_id;
             $model->office_id       = $request->office_id;
@@ -68,27 +60,26 @@ class DispatchController extends Controller
             $model->time            = $request->time;
             $model->send_to         = $request->send_to;
             $model->received_from   = $request->received_from;
-
             $model->save();
 
+            
+            
             if ($request->hasFile('attachments')) {
-                foreach ($request->file('attachments') as $attachment) {
-                    // Make sure it's a file and not an array
-                    if (is_object($attachment) && $attachment->isValid()) {
-                        $fileName = 'dispatch_document_' . uniqid() . '.' . $attachment->getClientOriginalExtension();
-                        $filePath = $attachment->storeAs('documents', $fileName, 'public');
+    foreach ($request->file('attachments') as $file) {
+        if (is_object($file) && $file->isValid()) {
+            $fileName = uniqid('dispatch_detail_document_') . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->move('documents/dispatch-details', $fileName);
 
-                        $document = new DispatchDocument();
-                        $document->dispatch_id = $model->id;
-                        $document->title = $model->title;
-                        $document->file = $filePath;
-                        $document->status = 0;
-                        $document->save();
-                    }
-                }
-            }
-
-
+            $detailDocument = new DispatchDocument(); // or DispatchDetailDocument if needed
+            $detailDocument->dispatch_id = $model->id; // make sure $model is your DispatchDetail
+            $detailDocument->title = $fileName; // or use original name: $file->getClientOriginalName()
+            $detailDocument->file = $filePath;
+            $detailDocument->status = 0;
+            $detailDocument->save();
+        }
+    }
+}
+            
             if ($request->filled('selected_users')) {
                 foreach ($request->selected_users as $user_id) {
                     $detail = new DispatchDetail();
@@ -103,59 +94,43 @@ class DispatchController extends Controller
             db::rollBack();
 //            dd($exception);
         }
-
-
             session()->flash('success', 'Dispatch created successfully!');
             return redirect()->route('dispatch.index');
-
-
             session()->flash('error', 'Something went wrong: ' . $e->getMessage());
             return back()->withInput();
-
     }
-
-    public function show(Dispatch $dispatch)
+    public function show($id)
     {
         try {
-            $model = $dispatch->load('users');
-            $flags = Flag::pluck('title', 'id');
+            $dispatch = Dispatch::with([
+                'dispatchDocuments',
+                'dispatchDetails',
+                'dispatchDetails.dispatchDetailDocument',
+                'office',
+                'folder',
+                'flag',
+            
+            ])->find($id);
+
             $offices = Office::pluck('title', 'id');
-            $departments = Department::pluck('name', 'id');
-            $folders = Folder::pluck('title', 'id');
-
-            $users = User::select('id', 'name', 'cnic', 'contact', 'office_id', 'department_id')
-                ->with(['office:id,title', 'department:id,name'])
-                ->get()
-                ->map(function ($user) {
-                    return [
-                        'id' => $user->id,
-                        'name' => $user->name ?? 'N/A',
-                        'cnic' => $user->cnic ?? 'N/A',
-                        'contact' => $user->contact ?? 'N/A',
-                        'office_id' => $user->office_id,
-                        'department_id' => $user->department_id,
-                        'office' => $user->office ? ['title' => $user->office->title ?? 'N/A'] : null,
-                        'department' => $user->department ? ['name' => $user->department->name ?? 'N/A'] : null,
-                    ];
-                });
-
-//            session()->flash('success', 'Dispatch details Shows  successfully!');
-            return view('backend.website.dispatch.show', compact('model', 'flags', 'offices', 'departments', 'folders', 'users'));
+            $users = User::with(['office:id,title', 'department:id,name'])
+                ->get();
+            return view('backend.website.dispatch.show', compact('dispatch', 'offices', 'users'));
         } catch (\Exception $e) {
-            session()->flash('error', 'Failed to load dispatch: ' . $e->getMessage());
-            return back();
+            session()->flash('error', 'Dispatch not found: ' . $e->getMessage());
+            return redirect()->route('dispatch.index');
         }
+        //  $users = User::pluck('name', 'id');
+        //  $details = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments' ,'dispatchDetailDocument')->find($id);
+        //  return view('backend.website.dispatch.show', compact('details', 'users'));
     }
-
-
     public function edit($id)
     {
-        $model = Dispatch::findOrFail($id);
+        $model = Dispatch::find($id);
         $flags = Flag::pluck('title', 'id');
         $offices = Office::pluck('title', 'id');
         $departments = Department::pluck('name', 'id');
         $folders = Folder::pluck('title', 'id');
-
         $users = User::select('id', 'name', 'cnic', 'contact', 'office_id', 'department_id')
             ->with(['office:id,title', 'department:id,name'])
             ->get()
@@ -174,7 +149,6 @@ class DispatchController extends Controller
 
         return view('backend.website.dispatch.edit', compact('model', 'flags', 'offices', 'departments', 'folders', 'users'));
     }
-
     public function update(DispatchUpdateRequest $request, $id)
     {
         try {
@@ -217,13 +191,10 @@ class DispatchController extends Controller
             return back()->withInput();
         }
     }
-
-
-
     public function delete($id)
     {
         try {
-            $model = Dispatch::findOrFail($id);
+            $model = Dispatch::find($id);
             $model->delete();
             session()->flash('success', 'Dispatch deleted successfully!');
             return redirect()->route('dispatch.index');
@@ -233,38 +204,37 @@ class DispatchController extends Controller
         }
     }
 
+   public function updateStatus(Request $request, $id)
+ {
+        $dispatchDetail = DispatchDetail::find($id);
+        $dispatchDetail->status = $request->status;
+        $dispatchDetail->remark = $request->remark;
+        $dispatchDetail->save();
+
+        return redirect()->back()->with('success', 'Status updated successfully.');
+    
+ }
 
     //Assigned to me tasks
-
-      public function pending($id){
-        $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->OfAssignedToMe()->where('status', 0)->get();
-       return view('backend.website.inbox.pending.index', compact('models'));
-
+    public function assigned(){
+        $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->ofAssignedToMe()->get();
+        return view('backend.website.inbox.assigned.index', compact('models'));
     }
-
-    public function assigned($id){
-
-        $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->OfAssignedToMe()->where('status', 1)->get();
-        dd($models);
-       return view('backend.website.inbox.assigned.index', compact('models'));
-
-    }
-       public function approved($id){
-        $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->OfAssignedToMe()->where('status', 2)->get();
-       return view('backend.website.inbox.approved.index', compact('models'));
-
-    }
-       public function rejected($id){
-        $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->OfAssignedToMe()->where('status', 3)->get();
-       return view('backend.website.inbox.rejected.index', compact('models'));
-
-    }
-
-    public function returned($id){
-        $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->OfAssignedToMe()->where('status', 4)->get();
-       return view('backend.website.inbox.returned.index', compact('models'));
-
-    }
-
+    public function approved($id){
+    $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->ofApproved()->ofAssignedToMe()->get();
+    return view('backend.website.inbox.approved.index', compact('models'));
+ }
+ public function rejected($id){
+    $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->ofRejected->ofAssignedToMe()->get();
+    return view('backend.website.inbox.rejected.index', compact('models'));
+ }
+ public function returned($id){
+    $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->ofReturned->ofAssignedToMe()->get();
+    return view('backend.website.inbox.returned.index', compact('models'));
+ }
+ public function recommended($id){
+    $models = DispatchDetail::with('dispatch', 'dispatch.dispatchDocuments')->ofRecommended->ofAssignedToMe()->get();
+    return view('backend.website.inbox.recommended.index', compact('models'));
+}
 
 }

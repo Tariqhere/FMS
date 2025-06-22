@@ -7,6 +7,7 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\Department;
 use App\Models\Office;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -39,6 +40,7 @@ class UserController extends Controller
         $model = new User();
         $model->name = $request->name;
         $model->email = $request->email;
+        $model->password = Hash::make($request->password);
         $model->cnic = $request->cnic;
         $model->office_id = $request->office_id;
         $model->department_id = $request->department_id;
@@ -89,6 +91,7 @@ class UserController extends Controller
         $model = User::find($id);
         $model->name = $request->name;
          $model->email = $request->email;
+         $model->password = Hash::make($request->password);
          $model->cnic = $request->cnic;
          $model->office_id = $request->office_id;
         $model->department_id = $request->department_id;
@@ -99,12 +102,6 @@ class UserController extends Controller
             $model->image = $path;
         }
         $model->save();
-        session()->flash('success', 'User Update successfully!');
-            return redirect()->route('user.index');
-
-       
-            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
-            return back()->withInput();
         return redirect()->route('office.index');
     }
 
@@ -115,8 +112,6 @@ class UserController extends Controller
     {
         $model = User::find($id);
         $model->delete();
-    
-       flash()->success('User deleted successfully!');
             return redirect()->route('user.index');
-            flash()->error('Failed to delete user: ' . $e->getMessage());      }
+    }       
 }

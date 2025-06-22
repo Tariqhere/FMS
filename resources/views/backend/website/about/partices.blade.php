@@ -1,3 +1,4 @@
+```blade
 @extends('backend.layout.auth')
 @section('backend')
     <div class="content-wrapper">
@@ -55,6 +56,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Paras/Remarks/Description -->
                             <div class="mb-5">
                                 <h6 class="fw-semibold text-dark mb-3 border-bottom pb-2">Paras/Remarks/Description</h6>
@@ -66,6 +68,7 @@
                                     @endif
                                 </div>
                             </div>
+
                             <!-- Attachments -->
                             <div class="mb-5">
                                 <h6 class="fw-semibold text-dark mb-3 border-bottom pb-2">Attachments</h6>
@@ -81,42 +84,39 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse($dispatch->dispatchDocuments as $index => $document)
-                                                    @php
-                                                        $extension = pathinfo($document->file, PATHINFO_EXTENSION);
-                                                        $isImage = in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp']);
-                                                    @endphp
-                                                    <tr class="transition-all">
+                                                @foreach ($dispatch->dispatchDocuments as $index => $attachment)
+                                                    <tr>
                                                         <td>{{ $index + 1 }}</td>
-                                                        <td>{{ $document->title ?? 'Untitled Document' }}</td>
+                                                        <!-- Title -->
+                                                        <td>{{ $attachment->title ?? 'Untitled Document' }}</td>
+                                                        <!-- File Preview or Icon -->
                                                         <td>
-                                                            @if($isImage)
-                                                                <img src="{{ asset($document->file) }}" alt="{{ $document->title }}" style="width: 40px; height: 40px; cursor: pointer;" onclick="toggleFullScreen(this)">
+                                                            @if(in_array(strtolower(pathinfo($attachment->file, PATHINFO_EXTENSION)), ['png', 'jpg', 'jpeg']))
+                                                                <img src="{{ asset('storage/' . $attachment->file) }}"
+                                                                     alt="{{ $attachment->title ?? 'Attachment' }}"
+                                                                     class="rounded"
+                                                                     style="max-width: 100px; height: auto;">
                                                             @else
                                                                 <i class="bi bi-file-earmark-text fs-3 text-primary"></i>
                                                                 <br>
-                                                                <small>{{ strtoupper($extension) }}</small>
+                                                                <small>{{ strtoupper(pathinfo($attachment->file, PATHINFO_EXTENSION)) }}</small>
                                                             @endif
                                                         </td>
+                                                        <!-- Action Buttons -->
                                                         <td>
                                                             <div class="d-flex gap-2">
-                                                                <a href="{{ asset($document->file) }}" target="_blank" class="btn btn-outline-primary btn-sm" title="Preview">
+                                                                <a href="{{ asset('storage/' . $attachment->file) }}" target="_blank"
+                                                                   class="btn btn-outline-primary btn-sm" title="Preview">
                                                                     <i class="bi bi-eye me-1"></i>Preview
                                                                 </a>
-                                                                <a href="{{ asset($document->file) }}" download class="btn btn-outline-success btn-sm" title="Download">
+                                                                <a href="{{ asset('storage/' . $attachment->file) }}" download
+                                                                   class="btn btn-outline-success btn-sm" title="Download">
                                                                     <i class="bi bi-download me-1"></i>Download
                                                                 </a>
                                                             </div>
-                                                            @if($isImage)
-                                                                <img src="{{ asset($document->file) }}" alt="Preview Image" style="max-height: 120px; max-width: 200px; border-radius: 6px; cursor: pointer; margin-top: 10px;" onclick="toggleFullScreen(this)">
-                                                            @endif
                                                         </td>
                                                     </tr>
-                                                @empty
-                                                    <tr>
-                                                        <td colspan="4" class="text-muted">No attachments available.</td>
-                                                    </tr>
-                                                @endforelse
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -124,98 +124,53 @@
                                     <p class="text-muted">No attachments available.</p>
                                 @endif
                             </div>
-                            <!-- Dispatch Details Data -->
-                            <div class="mb-5">
-                                <h6 class="fw-semibold text-dark mb-3 border-bottom pb-2">Dispatch Details</h6>
-                                @if($dispatch->dispatchDetails->isNotEmpty())
-                                    <div class="table-responsive rounded-2 border">
-                                        <table class="table table-hover mb-0">
-                                            <thead class="bg-light">
-                                                <tr>
-                                                    <th scope="col" class="fw-semibold text-muted">S#</th>
-                                                    <th scope="col" class="fw-semibold text-muted">Remark</th>
-                                                    <th scope="col" class="fw-semibold text-muted">Status</th>
-                                                    <th scope="col" class="fw-semibold text-muted">Associated User</th>
-                                                    <th scope="col" class="fw-semibold text-muted">Created At</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($dispatch->dispatchDetails as $index => $detail)
-                                                    <tr class="transition-all">
-                                                        <td>{{ $index + 1 }}</td>
-                                                        <td>{{ $detail->remark ?? 'N/A' }}</td>
-                                                        <td>
-                                                            @if($detail->status == 0)
-                                                                <span class="badge bg-secondary">Pending</span>
-                                                            @elseif($detail->status == 1)
-                                                                <span class="badge bg-success">Approved</span>
-                                                            @elseif($detail->status == 2)
-                                                                <span class="badge bg-danger">Rejected</span>
-                                                            @elseif($detail->status == 3)
-                                                                <span class="badge bg-warning">Returned</span>
-                                                            @elseif($detail->status == 4)
-                                                                <span class="badge bg-info">Recommended</span>
-                                                            @else
-                                                                <span class="badge bg-secondary">Unknown</span>
-                                                            @endif
-                                                        </td>
-                                                        <td>{{ optional($detail->user)->name ?? 'N/A' }}</td>
-                                                        <td>{{ $detail->created_at->format('d M Y, H:i') }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                @else
-                                    <p class="text-muted">No dispatch details available.</p>
-                                @endif
-                            </div>
-                           <!-- Dispatch Documents -->
-                           <div class="mb-5">
-                              <h6 class="fw-semibold text-dark mb-3 border-bottom pb-2">Dispatch Documents</h6>
-                              <div class="table-responsive rounded-2 border">
-                                <table class="table table-hover mb-0">
-                                <thead class="bg-light">
-                               <tr>
-                                            <th scope="col" class="fw-semibold text-muted">S#</th>
-                                            <th scope="col" class="fw-semibold text-muted">File</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @forelse($dispatch->dispatchDocuments as $document)
-                                           @php
-                                                $extension = pathinfo($document->file, PATHINFO_EXTENSION);
-                                                $isImage = in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp']);
-                                            @endphp
-                                           <tr class="transition-all">
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>
-                                                    <img src="{{ asset($document->file) }}" alt="{{ $document->title }}" style="width: 200px; height:200px;">
-                                                <td>
-                                                    <div class="d-flex flex-column gap-2">
-                                                     
-                                                        </div>
-                                                        @if($isImage)
-                                                         <img src="{{ asset($document->file) }}" alt="Preview Image" style="max-height: 120px; max-width: 200px; border-radius: 6px;">
-                                                        @endif
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @empty
-                                            <tr>
-                                                <td colspan="3" class="text-muted">No documents for this detail.</td>
-                                            </tr>
-                                        @endforelse
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
 
+                            <!-- Dispatch Details Documents -->
+                            <div class="mb-5">
+                                <h6 class="fw-semibold text-dark mb-3 border-bottom pb-2">Dispatch Details Documents</h6>
+                                <div class="table-responsive rounded-2 border">
+                                    <table class="table table-hover mb-0">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th scope="col" class="fw-semibold text-muted">S#</th>
+                                                <th scope="col" class="fw-semibold text-muted">Title</th>
+                                                <th scope="col" class="fw-semibold text-muted">File</th>
+                                                <th scope="col" class="fw-semibold text-muted">Associated User</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse($dispatch->dispatchDocuments as $document)
+                                                <tr class="transition-all">
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $document->title ?? 'N/A' }}</td>
+                                                    <td>
+                                                        <div class="d-flex gap-2">
+                                                            <a href="{{ asset('storage/' . $document->file) }}" target="_blank" class="btn btn-outline-primary btn-sm">
+                                                                <i class="bi bi-eye me-1"></i>Preview
+                                                            </a>
+                                                            <a href="{{ asset('storage/' . $document->file) }}" download class="btn btn-outline-success btn-sm">
+                                                                <i class="bi bi-download me-1"></i>Download
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                    <td>{{ optional($dispatch->user)->name ?? 'N/A' }}</td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="4" class="text-muted">No documents for this detail.</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
 
                             <!-- Update Dispatch Form -->
                             <div class="col-12 mb-5">
+                                <h6 class="fw-semibold text-dark mb-3 border-bottom pb-2">Update Dispatch</h6>
                                 {!! html()->form('POST', route('dispatch.updateStatus', $dispatch->id))->attribute('enctype', 'multipart/form-data')->id('update-form')->open() !!}
                                 @csrf
+
                                 <!-- Para/Remark -->
                                 <div class="col-12 mb-4">
                                     <label for="description" class="form-label fw-medium text-dark">Para/Remark</label>
@@ -225,14 +180,16 @@
                                         <span class="text-danger small">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                                 <!-- Row for Attach_file and Status -->
                                 <div class="row mb-4">
+                                    <!-- File Upload -->
                                     <div class="col-8">
                                         <label for="attachment" class="form-label fw-medium text-dark">Attachments</label>
-                                        <div class="border rounded  bg-light">
+                                        <div class="border rounded p-3 bg-light">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <span class="text-muted ms-2 mt-2">Select files (JPEG, PNG, PDF)</span>
-                                                <button type="button" class="btn btn-sm btn-primary mt-2 me-2" id="choose-file" data-bs-toggle="tooltip" title="Add new files">
+                                                <span class="text-muted">Select files (JPEG, PNG, PDF)</span>
+                                                <button type="button" class="btn btn-sm btn-primary" id="choose-file" data-bs-toggle="tooltip" title="Add new files">
                                                     <i class="bi bi-plus-circle me-1"></i>Add Files
                                                 </button>
                                             </div>
@@ -243,7 +200,8 @@
                                         @error('attachment.*')
                                             <span class="text-danger small">{{ $message }}</span>
                                         @enderror
-                                   </div>
+                                    </div>
+
                                     <!-- Status Select -->
                                     <div class="col-4">
                                         <label for="status" class="form-label fw-medium text-dark">Status</label>
@@ -259,6 +217,7 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <!-- Member List -->
                                 <div class="mb-4">
                                     <h6 class="fw-semibold text-dark mb-3">Assign Members</h6>
@@ -282,10 +241,9 @@
                                     </div>
                                     <p class="text-muted mt-2" id="no-users-message" style="display: none;">No users available.</p>
                                 </div>
+
                                 <!-- Submit Button -->
-                               <div class="d-flex justify-content-end">
-                               <button type="submit" class="btn btn-primary">Submit</button>
-                           </div>
+                                <button type="submit" class="btn btn-primary">Submit Update</button>
                                 {!! html()->form()->close() !!}
                             </div>
                         </div>
@@ -294,8 +252,10 @@
             </div>
         </section>
     </div>
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Bootstrap Icons -->
@@ -308,10 +268,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Quill Editor JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quill/2.0.0/quill.min.js"></script>
+
     <!-- Pass users to JS -->
     <script>
         const allUsers = @json($users ?? []);
     </script>
+
     <!-- Custom CSS -->
     <style>
         body {
@@ -449,6 +411,7 @@
             }
         }
     </style>
+
     <!-- JavaScript -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -461,8 +424,10 @@
             const userTable = document.getElementById('user-table');
             const userTableBody = document.getElementById('user-table-body');
             const noUsersMessage = document.getElementById('no-users-message');
+
             let currentFilteredUsers = allUsers;
             let selectedFiles = [];
+
             // Initialize Quill Editor
             try {
                 const quill = new Quill('#quill-editor', {
@@ -479,9 +444,11 @@
             } catch (error) {
                 console.error('Quill initialization error:', error);
             }
+
             // Initialize Bootstrap Tooltips
             const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
             const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
             // Attachment handling
             function updateAttachmentPreview() {
                 attachmentPreview.innerHTML = '';
@@ -538,6 +505,7 @@
                     attachmentPreview.style.display = 'none';
                 }
             }
+
             function initializeActionButtons() {
                 // Replace file
                 document.querySelectorAll('.replace-file').forEach(button => {
@@ -547,6 +515,7 @@
                         replaceInput.click();
                     });
                 });
+
                 // Remove file
                 document.querySelectorAll('.remove-file').forEach(button => {
                     button.addEventListener('click', () => {
@@ -555,17 +524,21 @@
                         updateAttachmentPreview();
                     });
                 });
+
                 // Re-initialize tooltips for new buttons
                 const newTooltips = document.querySelectorAll('.attachment-actions [data-bs-toggle="tooltip"]');
                 newTooltips.forEach(tooltip => new bootstrap.Tooltip(tooltip));
             }
+
             chooseFileBtn.addEventListener('click', () => attachmentInput.click());
+
             attachmentInput.addEventListener('change', () => {
                 const newFiles = Array.from(attachmentInput.files);
                 selectedFiles = [...selectedFiles, ...newFiles];
                 updateAttachmentPreview();
                 attachmentInput.value = ''; // Clear input for next selection
             });
+
             replaceInput.addEventListener('change', () => {
                 const index = parseInt(replaceInput.dataset.index);
                 const newFile = replaceInput.files[0];
@@ -576,6 +549,7 @@
                 replaceInput.value = '';
                 delete replaceInput.dataset.index;
             });
+
             // Update form data before submission
             updateForm.addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -610,17 +584,17 @@
                     }
                 });
             });
+
             // User table update
             function updateUserTable(users) {
                 userTableBody.innerHTML = '';
                 if (users.length > 0) {
                     users.forEach((user, index) => {
-                        console.log(user);
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${index + 1}</td>
                             <td>${user.name || 'N/A'}</td>
-                            <td>${user.email ||'N/A'}</td>
+                            <td>${user.email ? user.email : 'N/A'}</td>
                             <td>${user.office?.title || 'N/A'}</td>
                             <td>${user.department?.name || 'N/A'}</td>
                             <td><input type="checkbox" name="selected_users[]" value="${user.id}"></td>
@@ -634,6 +608,7 @@
                     noUsersMessage.style.display = 'block';
                 }
             }
+
             // Initial user table load
             updateUserTable(allUsers);
         });

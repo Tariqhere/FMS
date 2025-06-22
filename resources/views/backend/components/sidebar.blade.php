@@ -4,12 +4,12 @@
       .layout-menu {
         width: 265px; /* Width ko thoda kam kiya gaya */
         transition: all 0.3s ease;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgb(47, 76, 158);
       }
 
       /* Hover Effect for Menu Link */
       .menu-link:hover {
-        background-color: #f0f2f5;
+        background-color: #27569c;
         transform: translateX(5px);
         transition: all 0.2s ease;
       }
@@ -28,7 +28,7 @@
       /* Active Menu Item Style */
       .menu-item.active .menu-link {
         background-color: #696cff;
-        color: white;
+        color: rgb(157, 139, 201);
         border-radius: 4px;
       }
 
@@ -179,32 +179,32 @@
       </li>
 
       <!-- Inbox -->
-      <li class="menu-item">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-          <div>Inbox</div>
-        </a>
-        <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="inbox/all.html" class="menu-link">All</a>
-          </li>
-          <li class="menu-item">
-            <a href="{{route('get.dispatch.pending')}}" class="menu-link">Sent</a>
-          </li>
-          <li class="menu-item">
-            <a href="{{ route('dispatch.returned', auth()->user()->id) }}" class="menu-link">Returned</a>
-          </li>
-          <li class="menu-item">
-            <a href="{{ route('dispatch.rejected', auth()->user()->id) }}" class="menu-link">Rejected</a>
-          </li>
-          <li class="menu-item">
-            <a href="{{ route('dispatch.approved', auth()->user()->id) }}" class="menu-link">Approved</a>
-          </li>
-          <li class="menu-item">
-            <a href="{{ route('dispatch.assigned', auth()->user()->id) }}" class="menu-link">Assigned</a>
-          </li>
-        </ul>
-      </li>
+<li class="menu-item">
+  <a href="javascript:void(0);" class="menu-link menu-toggle">
+    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+    <div>Inbox</div>
+  </a>
+  <ul class="menu-sub">
+    <li class="menu-item">
+      <a href="{#}" class="menu-link">All</a>
+    </li>
+    <li class="menu-item">
+      <a href="{{ route('dispatch.returned')}}" class="menu-link">Returned</a>
+    </li>
+    <li class="menu-item">
+      <a href="{{ route('dispatch.rejected')}}" class="menu-link">Rejected</a>
+    </li>
+    <li class="menu-item">
+      <a href="{{ route('dispatch.recommended') }}" class="menu-link">Recommend</a>
+    </li>
+    <li class="menu-item">
+      <a href="{{ route('dispatch.approved')}}" class="menu-link">Approved</a>
+    </li>
+     <li class="menu-item">
+        <a href="{{ route('dispatch.assigned_to_me') }}" class="menu-link">Assigned</a>
+    </li>
+  </ul>
+</li>
     </ul>
   </aside>
 

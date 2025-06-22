@@ -190,7 +190,7 @@
                                            <tr class="transition-all">
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>
-                                                    <img src="{{ asset($document->file) }}" alt="{{ $document->title }}" style="width: 200px; height:200px;">
+                                                    <img src="{{ asset($document->file) }}" alt="{{ $document->title }}" style="width: 40px; height:40px;">
                                                 <td>
                                                     <div class="d-flex flex-column gap-2">
                                                      

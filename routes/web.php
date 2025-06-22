@@ -33,7 +33,7 @@ Route::middleware('auth')->prefix('backend')->group(function() {
         'flag' => FlagController::class,
         'folder' => FolderController::class,
         'dispatch' => DispatchController::class,
-        'assigned' => AssignedController::class,
+     
 
     ]);
 //    department
@@ -51,12 +51,14 @@ Route::middleware('auth')->prefix('backend')->group(function() {
     //dispatch//
     Route::get('/dispatch/delete/{id}', [DispatchController::class, 'delete'])->name('dispatch.delete');
 
+   Route::get('/dispatch/assigned_to_me/tasks', [DispatchController::class, 'assigned'])->name('dispatch.assigned_to_me');
+   Route::get('/dispatch/approved', [DispatchController::class, 'approved'])->name('dispatch.approved');
+    Route::get('/dispatch/rejected', [DispatchController::class, 'rejected'])->name('dispatch.rejected');
+    Route::get('/dispatch/returned', [DispatchController::class, 'returned'])->name('dispatch.returned');
+    Route::get('/dispatch/recommended', [DispatchController::class, 'recommended'])->name('dispatch.recommended');   
+    Route::post('/dispatch/update-status/{id}', [DispatchController::class, 'updateStatus'])->name('dispatch.updateStatus');
 
-    Route::get('/dispatch/pending_to_me', [DispatchController::class, 'pending'])->name('get.dispatch.pending');
- Route::get('/dispatch/assigned_to_me/{id}', [DispatchController::class, 'assigned'])->name('dispatch.assigned');
- Route::get('/dispatch/approved_to_me/{id}', [DispatchController::class,'approved'])->name('dispatch.approved');
- Route::get('/dispatch/rejected_to_me/{id}', [DispatchController::class,'rejected'])->name('dispatch.rejected');
- Route::get('/dispatch/returned_to_me/{id}', [DispatchController::class,'returned'])->name('dispatch.returned');
+
 });
     Auth::routes();
 

@@ -35,12 +35,7 @@ class FolderController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-       session()->flash('success', 'Folder Update successfully!');
             return redirect()->route('folder.index');
-
-       
-            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
-            return back()->withInput();
         return redirect()->route('folder.index');
     }
 
@@ -70,13 +65,8 @@ class FolderController extends Controller
         $model->title = $request->title;
         $model->code = $request->code;
         $model->save();
-         session()->flash('success', 'Folder Update successfully!');
             return redirect()->route('folder.index');
 
-       
-            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
-            return back()->withInput();
-        return redirect()->route('folder.index');
     }
 
     /**
@@ -87,9 +77,7 @@ class FolderController extends Controller
         $model = Folder::find($id);
         $model->delete();
            $model->save();
-
-        flash()->success('Folder deleted successfully!');
             return redirect()->route('folder.index');
-            flash()->error('Failed to delete flag: ' . $e->getMessage());    
+       
     }
 }

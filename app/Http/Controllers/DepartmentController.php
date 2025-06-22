@@ -29,13 +29,7 @@ class DepartmentController extends Controller
         $model->name = $request->name;
         $model->code = $request->code;
         $model->save();
-          session()->flash('success', 'Department created successfully!');
-            return redirect()->route('dispatch.index');
-
-       
-            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
-            return back()->withInput();
-
+         
         return redirect()->route('department.index');
        
     }
@@ -53,12 +47,7 @@ class DepartmentController extends Controller
         $model->name = $request->name;
         $model->code = $request->code;
         $model->save();
-          session()->flash('success', 'Department Update successfully!');
-            return redirect()->route('dispatch.index');
-
-       
-            session()->flash('error', 'Something went wrong: ' . $e->getMessage());
-            return back()->withInput();
+         
         return redirect()->route('department.index')->with('success', 'Department updated successfully!');
     }
 
@@ -68,7 +57,7 @@ class DepartmentController extends Controller
         $model = Department::find($id);
         $model->delete();
         $model->save();
-        flash()->success('Department deleted successfully!');
+        
             return redirect()->route('department.index');
-            flash()->error('Failed to delete dispatch: ' . $e->getMessage());    }
+        }
 }
